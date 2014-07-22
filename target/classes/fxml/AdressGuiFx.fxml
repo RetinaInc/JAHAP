@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="719.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.AdressGuiFx">
+  <children>
+    <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <HBox alignment="BOTTOM_LEFT" fillHeight="false" prefHeight="36.0" prefWidth="600.0">
+          <children>
+            <Button fx:id="firstRecord_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goFirstRecord" prefHeight="36.0" prefWidth="37.0" text="|&lt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button id="oneRecordForward__fxbutton" fx:id="oneRecordBackward_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goOneRecordBackward" prefHeight="36.0" prefWidth="37.0" text="&lt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button fx:id="oneRecordForward_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goOneRecordForward" prefHeight="36.0" prefWidth="37.0" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button fx:id="lastRecord_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goLastRecord" prefHeight="36.0" prefWidth="40.0" text="&gt;|" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+          </children>
+        </HBox>
+      </bottom>
+      <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" rotateGraphic="false" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+            <Tab text="Main">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <Label layoutX="123.0" layoutY="48.0" text="Name:" />
+                    <Label layoutX="63.0" layoutY="84.0" text="Christian name:" />
+                    <Label layoutX="123.0" layoutY="116.0" text="Street:" />
+                    <Label layoutX="102.0" layoutY="150.0" text="Zip Code:" />
+                    <Label layoutX="137.0" layoutY="183.0" text="City:" />
+                    <Label layoutX="99.0" layoutY="217.0" text="Phone no:" />
+                    <Label layoutX="125.0" layoutY="249.0" text="Email:" />
+                    <TextField id="name" fx:id="name_fxtextfield" layoutX="171.0" layoutY="48.0" prefWidth="200.0" />
+                    <TextField id="christianname" fx:id="christianname_fxtextfield" layoutX="171.0" layoutY="81.0" prefWidth="200.0" />
+                    <TextField fx:id="street_fxtextfield" layoutX="172.0" layoutY="113.0" prefWidth="200.0" />
+                    <TextField fx:id="zipcode_fxtextfield" layoutX="172.0" layoutY="147.0" prefWidth="67.0" />
+                    <TextField fx:id="city_fxtextfield" layoutX="172.0" layoutY="180.0" prefWidth="200.0" />
+                    <TextField fx:id="phoneno_fxtextfield" layoutX="172.0" layoutY="214.0" prefWidth="200.0" />
+                    <TextField fx:id="email_fxtextfield" layoutX="172.0" layoutY="246.0" prefWidth="200.0" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Reservations">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </center>
+      <right>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_RIGHT">
+          <children>
+            <Button fx:id="Save" mnemonicParsing="false" onAction="#save" prefHeight="36.0" prefWidth="100.0" text="Save" />
+            <Button id="new" fx:id="newadress" mnemonicParsing="false" onAction="#newadress" prefHeight="36.0" prefWidth="100.0" text="New" />
+            <Button fx:id="search" mnemonicParsing="false" onAction="#searchAdress" prefHeight="36.0" prefWidth="100.0" text="Search" />
+            <Button id="search" fx:id="printAdress" mnemonicParsing="false" onAction="#printAdress" prefHeight="36.0" prefWidth="100.0" text="Print" />
+          </children>
+        </VBox>
+      </right>
+    </BorderPane>
+  </children>
+</AnchorPane>

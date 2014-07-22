@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="726.0" prefWidth="924.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.RateListController">
+  <children>
+    <TabPane prefHeight="726.0" prefWidth="924.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <tabs>
+        <Tab text="Quick Search">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <VBox prefHeight="685.0" prefWidth="924.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="41.0">
+      <children>
+        <HBox prefHeight="614.0" prefWidth="938.0">
+          <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+              <children>
+                <Button fx:id="PrintButton" mnemonicParsing="false" onAction="#PrintReport" prefHeight="47.0" prefWidth="100.0" text="Print" />
+              </children>
+            </VBox>
+            <Pane prefHeight="614.0" prefWidth="734.0">
+              <children>
+                <TableView id="" fx:id="dataTable" editable="false" layoutX="0.0" layoutY="92.0" onMouseClicked="#MouseClicked" prefHeight="482.0" prefWidth="732.0" tableMenuButtonVisible="false" />
+                <TitledPane animated="false" expanded="false" layoutX="1.0" layoutY="65.0" text="Details">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="727.0" />
+                  </content>
+                </TitledPane>
+              </children>
+            </Pane>
+            <VBox prefHeight="614.0" prefWidth="90.0" />
+          </children>
+        </HBox>
+        <Pane prefHeight="71.0" prefWidth="924.0">
+          <children>
+            <Button fx:id="Ok" layoutX="796.0" layoutY="24.0" mnemonicParsing="false" onAction="#OkAction" prefHeight="47.0" prefWidth="121.0" text="OK" />
+            <Button fx:id="Cancel" layoutX="675.0" layoutY="24.0" mnemonicParsing="false" onAction="#CancelAction" prefHeight="47.0" prefWidth="121.0" text="Cancel" />
+          </children>
+        </Pane>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

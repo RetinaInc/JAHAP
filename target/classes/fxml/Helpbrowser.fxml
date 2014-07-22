@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.web.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="726.0" prefWidth="379.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.ListDialogAddressController">
+  <children>
+    <Accordion layoutX="0.0" layoutY="0.0" prefHeight="726.0" prefWidth="379.0">
+      <expandedPane>
+        <TitledPane fx:id="x1" animated="false" text="Help">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <WebView layoutX="14.0" layoutY="14.0" prefHeight="612.0" prefWidth="348.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+      </expandedPane>
+      <panes>
+        <fx:reference source="x1" />
+        <TitledPane animated="false" expanded="false" styleClass="first-titled-pane" text="Orders">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </TitledPane>
+        <TitledPane animated="false" text="Suggestions">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </TitledPane>
+      </panes>
+    </Accordion>
+  </children>
+</AnchorPane>

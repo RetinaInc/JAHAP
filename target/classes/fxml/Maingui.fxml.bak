@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.000199999995" prefWidth="919.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.MainGuiFx">
+  <children>
+    <BorderPane prefHeight="766.000199999995" prefWidth="919.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <HBox alignment="TOP_RIGHT" prefHeight="58.0" prefWidth="919.0000999999975" BorderPane.alignment="TOP_RIGHT">
+          <children>
+            <ListView prefHeight="58.0" prefWidth="844.0" HBox.hgrow="ALWAYS">
+              <HBox.margin>
+                <Insets />
+              </HBox.margin>
+            </ListView>
+            <Separator orientation="VERTICAL" prefHeight="58.0" prefWidth="37.0" />
+            <ProgressIndicator progress="0.0" />
+          </children>
+        </HBox>
+      </bottom>
+      <left>
+        <Accordion>
+          <expandedPane>
+            <TitledPane fx:id="x1" animated="false" text="untitled">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </TitledPane>
+          </expandedPane>
+          <panes>
+            <fx:reference source="x1" />
+            <TitledPane animated="false" text="untitled">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </TitledPane>
+          </panes>
+        </Accordion>
+      </left>
+      <padding>
+        <Insets />
+      </padding>
+      <top>
+        <VBox maxHeight="-Infinity" minHeight="50.0" prefHeight="86.99990000000253" prefWidth="919.0" BorderPane.alignment="TOP_RIGHT">
+          <children>
+            <MenuBar VBox.vgrow="ALWAYS">
+              <menus>
+                <Menu mnemonicParsing="false" text="Base Data">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#newAddress" text="New Address" fx:id="newAddress" />
+                    <MenuItem mnemonicParsing="false" onAction="#AdressSearch" text="Search for Address" fx:id="AdressSearch" />
+                    <MenuItem mnemonicParsing="false" onAction="#OpenRatesSearch" text="Rates" fx:id="Rates" />
+                    <MenuItem mnemonicParsing="false" onAction="#RoomsSearch" text="Rooms" fx:id="Rooms" />
+                    <MenuItem mnemonicParsing="false" text="Close" fx:id="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="FO">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Check-In" />
+                    <MenuItem mnemonicParsing="false" text="Check-Out" />
+                    <MenuItem mnemonicParsing="false" text="Reservation" />
+                    <MenuItem mnemonicParsing="false" onAction="#FO_SearchForReservation" text="Search for Reservation" fx:id="FO_SearchForReservation_fxmenuitem" />
+                    <MenuItem mnemonicParsing="false" onAction="#searchForGuestAccount" text="Guest Account" fx:id="searchForGuestAccount_fxmenuitem" />
+                    <MenuItem mnemonicParsing="false" onAction="#DayClose" text="Day Close" fx:id="DayClose_fxmenuitem" />
+                    <MenuItem mnemonicParsing="false" text="Occupancy Plan" fx:id="occplan_fxmenuitem" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Preference">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Rooms" />
+                    <MenuItem mnemonicParsing="false" text="Settings" />
+                    <MenuItem mnemonicParsing="false" text="Hotel" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="57.0" prefWidth="918.9998779296875" VBox.vgrow="ALWAYS">
+              <items>
+                <Button mnemonicParsing="false" text="Button" />
+              </items>
+            </ToolBar>
+          </children>
+        </VBox>
+      </top>
+    </BorderPane>
+  </children>
+</fx:root>

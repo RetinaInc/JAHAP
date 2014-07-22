@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="719.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.RateGuiFx">
+  <children>
+    <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <HBox alignment="BOTTOM_LEFT" fillHeight="false" prefHeight="36.0" prefWidth="600.0">
+          <children>
+            <Button fx:id="firstRecord_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goFirstRecord" prefHeight="36.0" prefWidth="37.0" text="|&lt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button id="oneRecordForward__fxbutton" fx:id="oneRecordBackward_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goOneRecordBackward" prefHeight="36.0" prefWidth="37.0" text="&lt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button fx:id="oneRecordForward_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goOneRecordForward" prefHeight="36.0" prefWidth="37.0" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button fx:id="lastRecord_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goLastRecord" prefHeight="36.0" prefWidth="40.0" text="&gt;|" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+          </children>
+        </HBox>
+      </bottom>
+      <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" rotateGraphic="false" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+            <Tab text="Main">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <Label layoutX="94.0" layoutY="48.0" text="Rate Code:" />
+                    <Label layoutX="92.0" layoutY="84.0" text="Rate name:" />
+                    <Label layoutX="140.0" layoutY="119.0" text="Vat:" />
+                    <Label layoutX="59.0" layoutY="150.0" prefWidth="105.0" text="Rate Base Price:" />
+                    <TextField id="name" fx:id="ratecode_fxtextfield" layoutX="172.0" layoutY="48.0" prefWidth="87.0" />
+                    <TextField id="christianname" fx:id="ratename_fxtextfield" layoutX="171.0" layoutY="81.0" prefWidth="200.0" />
+                    <TextField id="zipcode_fxtextfield" fx:id="RateBasePrice_fxtextfield" layoutX="172.0" layoutY="147.0" prefWidth="100.0" />
+                    <TextField fx:id="ratevat_fxtextfield" layoutX="172.0" layoutY="116.0" prefWidth="100.0" />
+                    <TextField fx:id="RateRevAccount_fxtextfield" layoutX="172.0" layoutY="181.0" prefWidth="100.0" />
+                    <Label layoutX="47.0" layoutY="184.0" text="Revenue Account:" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </center>
+      <right>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_RIGHT">
+          <children>
+            <Button fx:id="search" mnemonicParsing="false" onAction="#searchAdress" prefHeight="36.0" prefWidth="100.0" text="Search" />
+            <Button id="search" fx:id="printAdress" mnemonicParsing="false" onAction="#printAdress" prefHeight="36.0" prefWidth="100.0" text="Print" />
+          </children>
+        </VBox>
+      </right>
+    </BorderPane>
+  </children>
+</AnchorPane>
