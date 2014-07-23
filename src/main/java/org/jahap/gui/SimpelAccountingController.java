@@ -1,7 +1,29 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2014 Sebastian Russ <citeaux at https://github.com/citeaux/JAHAP>.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
+
+
 package org.jahap.gui;
 
 import com.google.common.eventbus.EventBus;
@@ -61,7 +83,7 @@ import org.jahap.entities.AccountPosition;
 import org.jahap.entities.Accounts;
 import org.jahap.entities.Bill;
 import org.jahap.entities.Rates;
-import org.jahap.gui.BillTabs;
+import static org.jahap.gui.BillTabs.log;
 
 /**
  * FXML Controller class
@@ -221,19 +243,12 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                 bz.setId(zw.getId());
                 bz.setBilled(zw.getBilled());
                 bz.setCanceled(zw.isCanceled());
-                
-                try {
-                    bz.setIsTempBill(jjk.getDataRecord(zw.getBill()).isTemp_bill());
-                    
-                } catch (Exception e) {
-                    bz.setIsTempBill(false);
-                }
-                
+                bz.setIsTempBill(jjk.getDataRecord(zw.getBill()).isTemp_bill());
                 
                 
                 try {
-                  
-                    if(jjk.getDataRecord(zw.getBill()).isTemp_bill()  ){
+                    //DEV: Warning: Record returns Null Parameter:? Catch??
+                    if(jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equalsIgnoreCase(jjk.getDataRecord(zw.getBill()).getBillname()) ){
                         bz.setBillnamestring(jjk.getDataRecord(zw.getBill()).getBillname());
                     }
                 } catch (Exception e) {
@@ -241,7 +256,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                 }
               
                    try {
-                      if(!jjk.getDataRecord(zw.getBill()).isTemp_bill() ){   //   
+                      if(!jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equals(jjk.getDataRecord(zw.getBill()).getBillname())){   //   
                     bz.setBillno(zw.getBill());
                       }
                 } catch (Exception e) {
@@ -306,7 +321,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
 
                             // add position to Tab ObsList
                             jj.addPosition(ggl);
-                            log.debug("Add Bill Tab" + String.valueOf(jj.getBillname()));
+                            
                             billtablist.add(jj);
                         }
                     } catch (Exception e) {
@@ -321,7 +336,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                             
                                for(Iterator<BillTabs> tbas=billtablist.iterator();tbas.hasNext();){
                            BillTabs koller=tbas.next();   
-                               if(koller.getBillname()==ggl.getBillnamestring() && ggl.isIsTempBill()) {
+                               if(koller.getBillno()==ggl.getBillno()) {
                                    
                                    gh=true; 
                                       // add position to Tab ObsList
@@ -420,7 +435,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                                          tol.setText("This position is canceled");
                                          Tooltip.install(this, tol);
                                      }
-                                     if (datam.get(tl).isBilled() == true || (datam.get(tl).isIsTempBill() &&  !"ZEROBILL".equalsIgnoreCase(datam.get(tl).getBillnamestring()))) {
+                                     if (datam.get(tl).isBilled() == true || datam.get(tl).isIsTempBill()) {
                                          setTextFill(Color.GREY);
                                          String texttip = new String();
                                          texttip = "This position is billed";
@@ -467,7 +482,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
 
                                try {
                                  if (tl <= datam.size() - 1) {
-                                     if (datam.get(tl).isBilled() == true || (datam.get(tl).isIsTempBill() &&  !"ZEROBILL".equalsIgnoreCase(datam.get(tl).getBillnamestring()))) {
+                                     if (datam.get(tl).isBilled() == true || datam.get(tl).isIsTempBill()) {
                                          setTextFill(Color.GREY);
                                          String texttip = new String();
                                          texttip = "This position is billed";
@@ -805,8 +820,6 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
 
     @FXML
     private void PrintAndCloseBill(ActionEvent event) {
-        
-        // http://www.developerscrappad.com/408/java/java-ee/ejb3-jpa-3-ways-of-generating-primary-key-through-generatedvalue/
         log.debug("Function entry PrintAndCloseBill");
         log.debug("Function exit PrintAndCloseBill");
                 
@@ -963,7 +976,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
        
        
        
-       jjj.saveRecord();
+       
        bbo.saveRecord();
        
      

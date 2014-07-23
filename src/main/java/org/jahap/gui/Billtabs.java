@@ -27,13 +27,14 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author russ
  */
 public class BillTabs{
-        
+         static Logger log = Logger.getLogger(BillTabs.class.getName());
         @FXML
          private TableColumn<viewAccountPositionsProperty, String>id_Account_tablefx;                                                   
         @FXML
@@ -65,6 +66,12 @@ public class BillTabs{
           
          
         public BillTabs(long billno) {
+            log.debug("Function enter BillTabs" + String.valueOf(billno));
+                    
+                    
+                    
+                    
+            
            ggk = new TableView();
              ggk.setPrefHeight(501);
              ggk.setPrefWidth(829);
@@ -73,32 +80,40 @@ public class BillTabs{
              billtab = new Tab();
             billtab.setText(String.valueOf(billno));
             billtab.setContent(ggk);
+            log.debug("Function exit BillTabs");
         }     
         
         
         public String getBillname(){
+            log.debug("Function entry getBillname");
+            log.debug("Function exit getBillname");
             return this.billtab.getText();
+            
         }
         
         public List<viewAccountPositionsProperty> removeSelectedPosiions(){
+            log.debug("Function entry removeSelectedPosiions");
+            
             ObservableList<viewAccountPositionsProperty>  gg = FXCollections.observableArrayList();
             gg=ggk.getSelectionModel().getSelectedItems();
             boolean jk=false;
             // checks for billed position which are not temp bills
             for(Iterator<viewAccountPositionsProperty>jjk=gg.iterator();jjk.hasNext();){
-                  if(jjk.next().getBillno()!=0){
+                  if(!jjk.next().isIsTempBill()){
                       jk=true;
                   }
             }
             if(jk==false){
              ggk.getItems().remove(gg);
             }
+            log.debug("Function exit removeSelectedPosiions");
             return gg;
         }
         
         
         
         public BillTabs(String billname) {
+            log.debug("Function enter BillTab" + String.valueOf(billname));
            ggk = new TableView();
              ggk.setPrefHeight(501);
              ggk.setPrefWidth(829);
@@ -107,35 +122,43 @@ public class BillTabs{
              billtab = new Tab();
             billtab.setText(billname);
             billtab.setContent(ggk);
+            log.debug("Function exit BillTab");
         }     
 
         public TableView getGgk() {
+            log.debug("Function entry getGgk");
             return ggk;
         }
 
         public void setGgk(TableView ggk) {
+            log.debug("Function entry setGgk");
             this.ggk = ggk;
         }
              
         
         
         public long getBillno() {
+            log.debug("Function entry getBillno");
             return billno;
         }
 
         public void setBillno(long billno) {
+             log.debug("Function entry setBillno");
             this.billno = billno;
         }
 
         public Tab getBilltab() {
+            log.debug("Function entry getBilltab");
             return billtab;
         }
 
         public void setBilltab(Tab billtab) {
+            log.debug("Function entry setBilltab");
             this.billtab = billtab;
         }
         
         public void addPosition(viewAccountPositionsProperty jj){
+            log.debug("Function entry addPosition ");
             try {
                 this.datamk.add(jj);
             } catch (Exception e) {
@@ -143,12 +166,12 @@ public class BillTabs{
                 System.out.println(e.toString());               
             }
             
-            
+            log.debug("Function exit addPosition");
         }
         
         public void addPositions(ObservableList<viewAccountPositionsProperty> jj){
             
-            
+            log.debug("Function entry addPositions");
             boolean addAll = this.datamk.addAll(jj);
 //            ggk.getItems().removeAll();
 //            
@@ -158,15 +181,19 @@ public class BillTabs{
             this.ggk.setVisible(false);
             this.ggk.setVisible(true);
             
+            log.debug("Function exit addPositions");
+            
             
         }
         
         
         public ObservableList<viewAccountPositionsProperty>getList(){
+            log.debug("Function entry getList");
             return this.datamk;
         }
         
         public void createTabel(){
+            log.debug("Function entry createTabel");
             buildTable(this.ggk);
         }
         
@@ -176,6 +203,8 @@ public class BillTabs{
         
         
           private void buildTable(TableView ko){
+              
+              log.debug("Function entry buildTable");
               // #################  ID       
             this.id_Account_tablefx  = new TableColumn<viewAccountPositionsProperty, String>("idx");
              this.id_Account_tablefx.setCellValueFactory(new PropertyValueFactory<viewAccountPositionsProperty, String>("idx"));
@@ -195,6 +224,7 @@ public class BillTabs{
                                  
                          @Override
                          public void updateItem(String item, boolean empty) {
+                             log.debug("Function entry updateItem Table Format row");
                              Tooltip tol=new Tooltip("Info");
                              
                               super.updateItem(item, empty);
@@ -212,7 +242,7 @@ public class BillTabs{
                                    tol.setText("This position is canceled");
                                     Tooltip.install(this, tol);
                                  }
-                                 if(datamk.get(tl).isBilled()==true || datamk.get(tl).getBillnamestring()!="" && !datamk.get(tl).getBillnamestring().contentEquals("ZEROBILL")){
+                                 if(datamk.get(tl).isBilled()==true || datamk.get(tl).isIsTempBill()){
                                     setTextFill(Color.GREY);
                                     String texttip=new String();
                                     texttip="This position is billed";
@@ -227,6 +257,7 @@ public class BillTabs{
                                
                                 setText(item);
 //                               }
+                                log.debug("Function exit updateItem Table Format row");
                           }
                          
                          
@@ -254,7 +285,7 @@ public class BillTabs{
                                int tl=getIndex();
 
                                 if(tl<=datamk.size()-1){
-                                 if(datamk.get(tl).isBilled()==true || datamk.get(tl).getBillnamestring()!="" && !datamk.get(tl).getBillnamestring().contentEquals("ZEROBILL")){
+                                 if(datamk.get(tl).isBilled()==true || datamk.get(tl).isIsTempBill() ){
                                  setTextFill(Color.GREY);
                                     String texttip=new String();
                                     texttip="This position is billed";
@@ -331,6 +362,8 @@ public class BillTabs{
              
   
        ko.setItems(this.datamk);
+              log.debug("Function exit buildTable");
+               
     }
         
     }
