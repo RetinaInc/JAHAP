@@ -49,10 +49,15 @@ import org.jahap.sreport.ratereports;
  * @author russ
  */
 public class RateGuiFx implements Initializable, RateSearchResultListener {
+    @FXML
         private TextField ratecode_fxtextfield;
+    @FXML
         private TextField ratename_fxtextfield;
+    @FXML
         private TextField RateBasePrice_fxtextfield;
+    @FXML
         private TextField ratevat_fxtextfield;
+    @FXML
         private TextField RateRevAccount_fxtextfield;
     @FXML
     private Button search;
@@ -63,9 +68,16 @@ public class RateGuiFx implements Initializable, RateSearchResultListener {
     private List<TextField> textfields;
     private RateSearchResult searchresults;
     private long ratesid=0;
+    @FXML
         private CheckBox OvernightRate_fxCheckBox;
     @FXML
-    private TitledPane x1;
+    private Button firstRecord_fxbutton;
+    @FXML
+    private Button oneRecordBackward_fxbutton;
+    @FXML
+    private Button oneRecordForward_fxbutton;
+    @FXML
+    private Button lastRecord_fxbutton;
     
     
     /**
@@ -87,6 +99,7 @@ public class RateGuiFx implements Initializable, RateSearchResultListener {
     }    
 
 
+    @FXML
         private void goOneRecordBackward(ActionEvent event) {
         rates.nextRecordBackward();
         FillWithSelectedData();
@@ -94,6 +107,7 @@ public class RateGuiFx implements Initializable, RateSearchResultListener {
         
     }
 
+    @FXML
         private void goOneRecordForward(ActionEvent event) {
         rates.nextRecordForeward();
         FillWithSelectedData();
@@ -136,6 +150,14 @@ public class RateGuiFx implements Initializable, RateSearchResultListener {
         RateBasePrice_fxtextfield.setText(String.valueOf(rates.getPrice()));
         OvernightRate_fxCheckBox.setSelected(rates.getOvernight());
         
+    }
+
+    @FXML
+    private void goFirstRecord(ActionEvent event) {
+    }
+
+    @FXML
+    private void goLastRecord(ActionEvent event) {
     }
     
 }

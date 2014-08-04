@@ -243,26 +243,32 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                 bz.setId(zw.getId());
                 bz.setBilled(zw.getBilled());
                 bz.setCanceled(zw.isCanceled());
-                bz.setIsTempBill(jjk.getDataRecord(zw.getBill()).isTemp_bill());
                 
                 
-                try {
+                if(zw.getBill()!=0){
+                      
+                    bz.setIsTempBill(jjk.getDataRecord(zw.getBill()).isTemp_bill());
+                
+                
+               
                     //DEV: Warning: Record returns Null Parameter:? Catch??
                     if(jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equalsIgnoreCase(jjk.getDataRecord(zw.getBill()).getBillname()) ){
                         bz.setBillnamestring(jjk.getDataRecord(zw.getBill()).getBillname());
                     }
-                } catch (Exception e) {
+         
+                    
+                
+              
+                  
+                      if(!jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equals(jjk.getDataRecord(zw.getBill()).getBillname())){   //   
+                        bz.setBillno(zw.getBill());
+                      }
+               
+                
+                }else{
+                    bz.setBillno(0); 
                     bz.setBillnamestring("");
                 }
-              
-                   try {
-                      if(!jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equals(jjk.getDataRecord(zw.getBill()).getBillname())){   //   
-                    bz.setBillno(zw.getBill());
-                      }
-                } catch (Exception e) {
-                     bz.setBillno(0); 
-                }
-                
            
                 // ############### Split Credit Row  #####################      
                 if (zw.getDebit() == false) {
@@ -331,6 +337,19 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                      
                      // TEMP BILLS: Bills that are not closed yet and therefore have non billno
                 }else{
+                       try {
+                        boolean jj = ggl.isIsTempBill();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                           try {
+                        boolean k = ggl.getBillnamestring().equalsIgnoreCase("ZEROBILL");
+                    } catch (Exception e) {
+                               log.debug(e.toString());
+                        
+                        ggl.setBillnamestring("");
+                    }
+                    
                     if(ggl.isIsTempBill() && !ggl.getBillnamestring().equalsIgnoreCase("ZEROBILL") ){
                         
                             

@@ -31,7 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
-<fx:root type="javafx.scene.layout.AnchorPane" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.000199999995" prefWidth="919.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.MainGuiFx">
+<AnchorPane  id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.000199999995" prefWidth="919.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.MainGuiFx">
   <children>
     <BorderPane prefHeight="766.000199999995" prefWidth="919.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
@@ -113,4 +113,4 @@ THE SOFTWARE.
       </top>
     </BorderPane>
   </children>
-</fx:root>
+</AnchorPane>
