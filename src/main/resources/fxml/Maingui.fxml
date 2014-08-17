@@ -31,7 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
-<AnchorPane  id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.000199999995" prefWidth="919.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.MainGuiFx">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.000199999995" prefWidth="919.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="org.jahap.gui.MainGuiFx">
   <children>
     <BorderPane prefHeight="766.000199999995" prefWidth="919.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
@@ -49,15 +49,12 @@ THE SOFTWARE.
       </bottom>
       <left>
         <Accordion>
-          <expandedPane>
-            <TitledPane fx:id="x1" animated="false" text="untitled">
+          <panes>
+            <TitledPane animated="false" text="untitled" fx:id="x1">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </TitledPane>
-          </expandedPane>
-          <panes>
-            <fx:reference source="x1" />
             <TitledPane animated="false" text="untitled">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -76,22 +73,22 @@ THE SOFTWARE.
               <menus>
                 <Menu mnemonicParsing="false" text="Base Data">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#newAddress" text="New Address" fx:id="newAddress" />
-                    <MenuItem mnemonicParsing="false" onAction="#AdressSearch" text="Search for Address" fx:id="AdressSearch" />
-                    <MenuItem mnemonicParsing="false" onAction="#OpenRatesSearch" text="Rates" fx:id="Rates" />
-                    <MenuItem mnemonicParsing="false" onAction="#RoomsSearch" text="Rooms" fx:id="Rooms" />
-                    <MenuItem mnemonicParsing="false" text="Close" fx:id="Exit" />
+                    <MenuItem fx:id="newAddress" mnemonicParsing="false" onAction="#newAddress" text="New Address" />
+                    <MenuItem fx:id="AdressSearch" mnemonicParsing="false" onAction="#AdressSearch" text="Search for Address" />
+                    <MenuItem fx:id="Rates" mnemonicParsing="false" onAction="#OpenRatesSearch" text="Rates" />
+                    <MenuItem fx:id="Rooms" mnemonicParsing="false" onAction="#RoomsSearch" text="Rooms" />
+                    <MenuItem fx:id="Exit" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="FO">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Check-In" />
-                    <MenuItem mnemonicParsing="false" text="Check-Out" />
-                    <MenuItem mnemonicParsing="false" text="Reservation" />
-                    <MenuItem mnemonicParsing="false" onAction="#FO_SearchForReservation" text="Search for Reservation" fx:id="FO_SearchForReservation_fxmenuitem" />
-                    <MenuItem mnemonicParsing="false" onAction="#searchForGuestAccount" text="Guest Account" fx:id="searchForGuestAccount_fxmenuitem" />
-                    <MenuItem mnemonicParsing="false" onAction="#DayClose" text="Day Close" fx:id="DayClose_fxmenuitem" />
-                    <MenuItem mnemonicParsing="false" onAction="#occplan" text="Occupancy Plan" fx:id="occplan_fxmenuitem" />
+                    <MenuItem fx:id="checkin" mnemonicParsing="false" onAction="#DoCheckin" text="Check-In" />
+                    <MenuItem fx:id="Checkcout" mnemonicParsing="false" onAction="#DoCheckout" text="Check-Out" />
+                    <MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewReservation" text="New Reservation" />
+                    <MenuItem fx:id="FO_SearchForReservation_fxmenuitem" mnemonicParsing="false" onAction="#FO_SearchForReservation" text="Search for Reservation" />
+                    <MenuItem fx:id="searchForGuestAccount_fxmenuitem" mnemonicParsing="false" onAction="#searchForGuestAccount" text="Guest Account" />
+                    <MenuItem fx:id="DayClose_fxmenuitem" mnemonicParsing="false" onAction="#DayClose" text="Day Close" />
+                    <MenuItem fx:id="occplan_fxmenuitem" mnemonicParsing="false" onAction="#OpenOccplan" text="Occupancy Plan" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Preference">

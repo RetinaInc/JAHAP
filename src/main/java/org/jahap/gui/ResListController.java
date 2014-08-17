@@ -49,6 +49,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JRException;
+import org.apache.log4j.Logger;
 import org.jahap.business.res.resbean;
 import org.jahap.entities.Res;
 import org.jahap.sreport.ratereports;
@@ -59,6 +60,8 @@ import org.jahap.sreport.ratereports;
  * @author russ
  */
 public class ResListController implements Initializable {
+    
+    static Logger log = Logger.getLogger(ResListController.class.getName());
     @FXML
     private Button PrintButton;
     @FXML
@@ -193,6 +196,8 @@ public class ResListController implements Initializable {
         stage.setScene(scene);
       ResguiController controller;
       controller = loader.<ResguiController>getController();
+            log.debug("Function entry" + id);
+            
       controller.init(id);
        
         

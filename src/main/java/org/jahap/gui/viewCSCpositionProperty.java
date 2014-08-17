@@ -27,9 +27,9 @@ package org.jahap.gui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javafx.beans.property.BooleanProperty;
+//import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import static org.jahap.entities.LogAccounting_.date;
+//import static org.jahap.entities.LogAccounting_.date;
 
 /**
  *

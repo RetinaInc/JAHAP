@@ -1,29 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="jahap" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="JAHAP" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>org.jahap.entities.AccountPosition</class>
     <class>org.jahap.entities.Accounts</class>
     <class>org.jahap.entities.Address</class>
     <class>org.jahap.entities.Bill</class>
-    <class>org.jahap.entities.BillPos</class>
-    <class>org.jahap.entities.Billposition</class>
     <class>org.jahap.entities.LogAccounting</class>
     <class>org.jahap.entities.Occ</class>
     <class>org.jahap.entities.Payed</class>
     <class>org.jahap.entities.Paymenttypes</class>
     <class>org.jahap.entities.Rates</class>
-    <class>org.jahap.entities.Receivables</class>
     <class>org.jahap.entities.Res</class>
     <class>org.jahap.entities.Revaccounts</class>
     <class>org.jahap.entities.Revenue</class>
     <class>org.jahap.entities.Rooms</class>
     <class>org.jahap.entities.Sequence</class>
+    <class>org.jahap.entities.Csc</class>
+    <class>org.jahap.entities.Vat</class>
+    <class>org.jahap.entities.Vattype</class>
+    <class>org.jahap.entities.SeqStore</class>
+    <class>org.jahap.entities.BillNo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/JAHAPs"/>
       <property name="javax.persistence.jdbc.password" value="gandhi"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
     </properties>
   </persistence-unit>
+  <!--<persistence-unit name="JAHAPTEST" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>org.jahap.entities.AccountPosition</class>
+    <class>org.jahap.entities.Accounts</class>
+    <class>org.jahap.entities.Address</class>
+    <class>org.jahap.entities.Bill</class>
+    <class>org.jahap.entities.Csc</class>
+    <class>org.jahap.entities.LogAccounting</class>
+    <class>org.jahap.entities.Occ</class>
+    <class>org.jahap.entities.Payed</class>
+    <class>org.jahap.entities.Paymenttypes</class>
+    <class>org.jahap.entities.Rates</class>
+    <class>org.jahap.entities.Res</class>
+    <class>org.jahap.entities.Revaccounts</class>
+    <class>org.jahap.entities.Revenue</class>
+    <class>org.jahap.entities.Rooms</class>
+    <class>org.jahap.entities.Sequence</class>
+    <class>org.jahap.entities.Vat</class>
+    <class>org.jahap.entities.Vattype</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/JAHAPTEST"/>
+      <property name="javax.persistence.jdbc.password" value="gandhi"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>  -->
 </persistence>

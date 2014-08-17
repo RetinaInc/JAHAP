@@ -32,6 +32,10 @@ public class billbean extends DatabaseOperations implements bill_i{
     JahapDatabaseConnector dbhook;
     private static List<Bill> allrecordlist;
      static Logger log = Logger.getLogger(billbean.class.getName());
+
+    /**
+     *
+     */
     public billbean(){
        
          log.debug("Function entry billbean");
@@ -63,8 +67,12 @@ public class billbean extends DatabaseOperations implements bill_i{
         log.debug("Function entry billbean");    
         
     }
-    
-    
+
+    /**
+     *
+     * @param searchstring
+     * @return
+     */
     public List<Bill>SearchForBill(String searchstring){
         
          log.debug("Function entry SearchForBill");
@@ -81,8 +89,11 @@ public class billbean extends DatabaseOperations implements bill_i{
         log.debug("Function exit SearchForBill ");
         return cleanedList;
     }
-    
-      public void createNewEmptyRecord() {
+
+    /**
+     *
+     */
+    public void createNewEmptyRecord() {
           
           log.debug("Function entry createNewEmptyRecord");
           if(tabelIsEmpty==true){
@@ -107,11 +118,10 @@ public class billbean extends DatabaseOperations implements bill_i{
         tabelIsInit=true; // Set Tabel iniated - List is connected
           log.debug("Function exit createNewEmptyRecord");
     }
-    
-      
-      
 
-  
+    /**
+     *
+     */
     public void nextRecordBackward() {
         log.debug("Function entry nextRecordBackward");
         
@@ -121,6 +131,9 @@ public class billbean extends DatabaseOperations implements bill_i{
         log.debug("Function exit nextRecordBackward");
     }
 
+    /**
+     *
+     */
     public void nextRecordForeward() {
         log.debug("Function entry nextRecordForeward");
         
@@ -131,6 +144,9 @@ public class billbean extends DatabaseOperations implements bill_i{
         log.debug("Function exit nextRecordForeward ");
     }
 
+    /**
+     *
+     */
     public void saveRecord() {
         log.debug("Function entry saveRecord");
          
@@ -160,8 +176,12 @@ public class billbean extends DatabaseOperations implements bill_i{
         
          log.debug("Function exit RefreshAllRecords");
     }
-    
-  
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Bill getDataRecord(long id){
         if(id==0)return null;
         log.debug("Function entry getDataRecord");
@@ -184,9 +204,12 @@ public class billbean extends DatabaseOperations implements bill_i{
         return allrecordlist.get(currentRecordNumber);
         
    }
-    
-    
-     public Bill getLastPosition(){
+
+    /**
+     *
+     * @return
+     */
+    public Bill getLastPosition(){
           log.debug("Function entry getLastPosition(");
              if( tabelIsEmpty!=true){ 
                  log.debug("Function exit getLastPosition");   
@@ -217,10 +240,12 @@ public class billbean extends DatabaseOperations implements bill_i{
                      e.printStackTrace();
             }
         }
-     } 
-    
-      
-       public void quitDBaccess(){
+     }
+
+    /**
+     *
+     */
+    public void quitDBaccess(){
            log.debug("Function entry quitDBaccess");
        dbhook.getEntity().close();
        
@@ -241,8 +266,12 @@ public class billbean extends DatabaseOperations implements bill_i{
            return allrecordlist.get(allrecordlist.size()-1);
            
        }
-       
-       public Bill getZeroRecord(){
+
+    /**
+     *
+     * @return
+     */
+    public Bill getZeroRecord(){
            log.debug("Function entry getZeroRecord" );
            boolean kl=false;
            for(Iterator<Bill>jj=allrecordlist.iterator();jj.hasNext();){
@@ -275,9 +304,12 @@ public class billbean extends DatabaseOperations implements bill_i{
         }
         
            log.debug("Function exit saveOldRecord");
-    } 
-     
-  
+    }
+
+    /**
+     *
+     * @return
+     */
     public Collection<AccountPosition> getAccountPositionCollection() {
         log.debug("Function entry getAccountPositionCollection ");
          Collection<AccountPosition> jk=new ArrayList<AccountPosition>();
@@ -295,6 +327,10 @@ public class billbean extends DatabaseOperations implements bill_i{
  
     }
     
+    /**
+     *
+     * @return
+     */
     public Address getAddress() {
         log.debug("Function entry getAddress");
        if( tabelIsEmpty!=true){ 
@@ -304,6 +340,10 @@ public class billbean extends DatabaseOperations implements bill_i{
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getBilldate() {
        
     if( tabelIsEmpty!=true) 
@@ -312,6 +352,10 @@ public class billbean extends DatabaseOperations implements bill_i{
     
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBillname() {
     
        if( tabelIsEmpty!=true){ 
@@ -322,6 +366,10 @@ public class billbean extends DatabaseOperations implements bill_i{
     
     }
 
+    /**
+     *
+     * @return
+     */
     public long getBillno() {
        if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getBillno();
@@ -329,12 +377,20 @@ public class billbean extends DatabaseOperations implements bill_i{
     
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getCanceled() {
     if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getCanceled();
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCanceledbill() {
             if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getCanceledbill();
@@ -342,30 +398,50 @@ public class billbean extends DatabaseOperations implements bill_i{
     
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBillNoString() {
         if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getBillNoString();
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUUID() {
         if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getUUID();
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getId();
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getTotal() {
        if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getTotal();
         return 0;
     }
 
+    /**
+     *
+     * @param accountPositionCollection
+     */
     public void setAccountPositionCollection(Collection<AccountPosition> accountPositionCollection) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -374,6 +450,10 @@ public class billbean extends DatabaseOperations implements bill_i{
     
     }
 
+    /**
+     *
+     * @param billno
+     */
     public void setBillNoString(String billno) {
        if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -382,6 +462,10 @@ public class billbean extends DatabaseOperations implements bill_i{
         
     }
 
+    /**
+     *
+     * @param address
+     */
     public void setAddress(Address address) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -389,6 +473,10 @@ public class billbean extends DatabaseOperations implements bill_i{
             allrecordlist.get(currentRecordNumber).setAddress(address);
     }
 
+    /**
+     *
+     * @param UUID
+     */
     public void setUUID(String UUID) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -397,6 +485,10 @@ public class billbean extends DatabaseOperations implements bill_i{
         
     }
 
+    /**
+     *
+     * @param billdate
+     */
     public void setBilldate(Date billdate) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -405,6 +497,10 @@ public class billbean extends DatabaseOperations implements bill_i{
     
     }
 
+    /**
+     *
+     * @param billname
+     */
     public void setBillname(String billname) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -414,11 +510,18 @@ public class billbean extends DatabaseOperations implements bill_i{
         
     }
 
+    /**
+     *
+     */
     public void setBillno() {
        
     
     }
 
+    /**
+     *
+     * @param canceled
+     */
     public void setCanceled(Boolean canceled) {
        if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -427,6 +530,10 @@ public class billbean extends DatabaseOperations implements bill_i{
         
     }
 
+    /**
+     *
+     * @param canceledbill
+     */
     public void setCanceledbill(long canceledbill) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -436,8 +543,10 @@ public class billbean extends DatabaseOperations implements bill_i{
         
     }
 
-   
-
+    /**
+     *
+     * @param total
+     */
     public void setTotal(double total) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();
@@ -445,12 +554,20 @@ public class billbean extends DatabaseOperations implements bill_i{
             allrecordlist.get(currentRecordNumber).setTotal(total);
     }
 
+    /**
+     *
+     * @return
+     */
     public Timestamp getBillchange() {
         if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getBillchange();
         return null;
     }
 
+    /**
+     *
+     * @param billchange
+     */
     public void setBillchange(Timestamp billchange) {
         log.debug("Function entry setBillchange");
         Calendar cal  = Calendar.getInstance();
@@ -459,9 +576,11 @@ public class billbean extends DatabaseOperations implements bill_i{
         log.debug("Function exit setBillchange");
         
     }
-    
-    
-     public void setBillchange() {
+
+    /**
+     *
+     */
+    public void setBillchange() {
          log.debug("Function entry setBillchange");
         Calendar cal  = Calendar.getInstance();
         Timestamp ggh = new Timestamp(cal.getTimeInMillis());
@@ -473,12 +592,20 @@ public class billbean extends DatabaseOperations implements bill_i{
          log.debug("Function exit setBillchange");
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean isTemp_bill() {
           if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).isTemp_bill();
         return null;
     }
 
+    /**
+     *
+     * @param temp_bill
+     */
     public void setTemp_bill(Boolean temp_bill) {
         if(tabelIsInit==false|| tabelIsEmpty==true)
             createNewEmptyRecord();

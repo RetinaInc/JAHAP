@@ -28,10 +28,10 @@ package org.jahap.business.res;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.jahap.business.res.DatabaseOperations;
 import org.jahap.entities.Accounts;
 import org.jahap.entities.Address;
-
 import org.jahap.entities.JahapDatabaseConnector;
 import org.jahap.entities.Res;
 import org.jahap.entities.Rooms;
@@ -41,7 +41,7 @@ import org.jahap.entities.Rooms;
  * @author russ
  */
 public class resbean extends DatabaseOperations implements res_i {
-  
+   static Logger log = Logger.getLogger(resbean.class.getName());
     JahapDatabaseConnector dbhook;
     private static List<Res> allrecordlist;
 
@@ -91,6 +91,8 @@ public class resbean extends DatabaseOperations implements res_i {
      * @return
      */
     public  long getNewResNumber(){
+        
+        // DEV: Number Area has to be implemented
         long resno=0;
         int gg=0;
         try {
@@ -219,16 +221,39 @@ public class resbean extends DatabaseOperations implements res_i {
      */
     public void  setDataRecordId(Long id){
         int inl=0;
+       
         
-        do 
-                {
+        for(Res k:allrecordlist){
             
+            if(k.getId().equals(id)){
+                log.debug("Function entry " + inl );
                 currentRecordNumber=inl;
-           
-           inl++;
-       }while(allrecordlist.get(currentRecordNumber).getId()!=id);
+                break;
+            }
+            inl++;  
+        }
+        
+      
        
    }
+    
+    public Res getLastRecord(){
+             return  allrecordlist.get(allrecordlist.size()-1);
+        
+    }
+    
+     private void RefreshAllRecords(){
+        try {
+            allrecordlist.clear();
+            query_AllDbRecords = dbhook.getEntity().createQuery("select t from Res t ORDER BY t.id");
+            allrecordlist = query_AllDbRecords.getResultList();
+            numberOfLastRecord=allrecordlist.size()-1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
     
     /**
      *
@@ -237,6 +262,7 @@ public class resbean extends DatabaseOperations implements res_i {
           if (newEmptyRecordCreated==true){
           saveNewRecord();
           setNewEmptyRecordSaved();
+          RefreshAllRecords();
           
       }
       if (newEmptyRecordCreated==false){
@@ -248,17 +274,7 @@ public class resbean extends DatabaseOperations implements res_i {
       
     }
 
-    private void RefreshAllRecords(){
-        try {
-            allrecordlist.clear();
-            query_AllDbRecords = dbhook.getEntity().createQuery("select t from Res t ORDER BY t.id");
-            allrecordlist = query_AllDbRecords.getResultList();
-            numberOfLastRecord=allrecordlist.size()-1;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-    }
+   
     
      /**
      *
@@ -381,7 +397,7 @@ public class resbean extends DatabaseOperations implements res_i {
 
     /**
      *
-     * @param arrivaldate
+     * @param String arrivaldate
      */
     public void setArrivaldate(String arrivaldate) {
         if(tabelIsInit==false|| tabelIsEmpty==true){
@@ -392,7 +408,7 @@ public class resbean extends DatabaseOperations implements res_i {
 
     /**
      *
-     * @param arrivaltime
+     * @param String arrivaltime
      */
     public void setArrivaltime(String arrivaltime) {
         if(tabelIsInit==false|| tabelIsEmpty==true){
@@ -403,7 +419,7 @@ public class resbean extends DatabaseOperations implements res_i {
 
     /**
      *
-     * @param departuredate
+     * @param String departuredate
      */
     public void setDeparturedate(String departuredate) {
         if(tabelIsInit==false|| tabelIsEmpty==true){
@@ -414,7 +430,7 @@ public class resbean extends DatabaseOperations implements res_i {
 
     /**
      *
-     * @param departuretime
+     * @param String departuretime
      */
     public void setDeparturetime(String departuretime) {
          if(tabelIsInit==false|| tabelIsEmpty==true){

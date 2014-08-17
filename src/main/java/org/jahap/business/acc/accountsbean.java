@@ -204,8 +204,11 @@ public class accountsbean extends DatabaseOperations implements accounts_i{
         
     }
     
-    
-    
+   
+      public Accounts getLastRecord(){
+             return  allrecordlist.get(allrecordlist.size()-1);
+        
+    }
     /**
      *
      */
@@ -227,6 +230,7 @@ public class accountsbean extends DatabaseOperations implements accounts_i{
       if (newEmptyRecordCreated=false){
           saveOldRecord();
       }
+      RefreshAllRecords();
     }
 
     

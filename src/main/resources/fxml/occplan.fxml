@@ -31,20 +31,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
-
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="953.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.SimpelAccountingController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jahap.gui.occplan">
   <children>
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
         <ScrollPane prefHeight="751.0" prefWidth="810.0">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="253.0">
-              <children>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="27.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutX="49.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="27.0" />
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" layoutX="14.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" width="27.0" />
-              </children>
+            <AnchorPane id="Content" fx:id="occpanel_anchorpane" minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="520.0">
+                     <children>
+                        <Label fx:id="box_label" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="37.0" style="-fx-background-color: grey;" />
+                     </children>
             </AnchorPane>
           </content>
         </ScrollPane>
@@ -53,6 +49,8 @@ THE SOFTWARE.
         <ToolBar>
           <items>
             <Button mnemonicParsing="false" text="Button" />
+                  <DatePicker fx:id="from_datepicker" />
+                  <DatePicker fx:id="to_datepicker" />
           </items>
         </ToolBar>
       </top>

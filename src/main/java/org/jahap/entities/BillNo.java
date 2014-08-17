@@ -60,8 +60,8 @@ public class BillNo implements Serializable, BILLNO_ie {
     @TableGenerator( name = "bill_gen", table = "SEQ_STORE", pkColumnName = "TABLE_NAME", pkColumnValue = "BILL", valueColumnName = "VALUE" , allocationSize = 1 )
     @GeneratedValue( strategy = GenerationType.TABLE, generator = "bill_gen" )
     private Long billno;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="BILLNO")
+    //@OneToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name ="BILLNO")
     private Bill bill;
     
     

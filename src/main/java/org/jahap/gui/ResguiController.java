@@ -25,10 +25,25 @@
 
 package org.jahap.gui;
 
-import com.google.common.eventbus.EventBus;
+
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.logging.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,26 +51,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
+import org.jahap.business.acc.accountsbean;
+import org.jahap.business.acc.cscbean;
 import org.jahap.business.base.addressbean;
 import org.jahap.business.base.ratesbean;
 import org.jahap.business.base.roomsbean;
 import org.jahap.business.res.occbean;
 import org.jahap.business.res.resbean;
-import org.jahap.entities.Occ;
-import extfx.scene.control.*;
-import extfx.util.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.swing.JOptionPane;
-import org.jahap.business.acc.accountsbean;
-import org.jahap.business.acc.cscbean;
 import org.jahap.entities.Accounts;
+import org.jahap.entities.Occ;
 
 /**
  * FXML Controller class
@@ -63,7 +75,11 @@ import org.jahap.entities.Accounts;
  * @author russ
  */
 public class ResguiController implements Initializable, InterResSearchResultListener {
-    private CalendarView clview;
+    //private CalendarView clview;
+    
+    
+    
+    static Logger log = Logger.getLogger(ResguiController.class.getName());
     @FXML
     private DatePicker datapickerFrom;
     @FXML
@@ -165,18 +181,41 @@ public class ResguiController implements Initializable, InterResSearchResultList
     private Button RATE_Details_fxtxtfield;
     @FXML
     private Label DASH_ResNewCreated_fxtxt;
-    private EventBus eventbus;
+
     /**
      * Initializes the controller class.
      */
+     private boolean createNewRecord=false;
      private long roomid=0;
      private long ordererid=0;
      private long guestid=0;
      private long rateid=0;
      private long accountid=0;
+     private List<TextField>textfields;
+
+    /**
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        textfields=new ArrayList<TextField>();
+        
+        
+        
+        
+        res = new resbean();
+        address=new addressbean();
+        occ=new occbean();
+        room=new roomsbean();
+        rate=new ratesbean();
+        accs=new accountsbean();
+        cscs=new cscbean();
+        ressearchresult=new InterResSearchResult();
+        createNewRecord=true;
+         ressearchresult.addIDListener(this);
     }    
 
     @FXML
@@ -322,30 +361,38 @@ public class ResguiController implements Initializable, InterResSearchResultList
     @FXML
     private void Save(ActionEvent event) {
        // only for changing Res
+        
+        log.debug("Function entry Save, CreateNewRecord=" + createNewRecord);
+        
+        if(createNewRecord=false){
+            log.debug("Function Save: oldrecord");
         Date SaveFromDate=occ.getArrivaldate();
         Date SaveToDate=occ.getDeparturedate();
         long SaveRoomId=occ.getRoom().getId();
         long SaveAddressId=occ.getGuest().getId();
+        
+            
       
+        
          res.setAddresses(address.getDataRecord(ordererid));  // Set Addressrecord
                       
-
+   
                      
 
                       
                       
                     
         
+       
         
-        
-        if(datapickerFrom.getValue()!=occ.getArrivaldate()){
-           
-            occ.setArrivaldate(datapickerFrom.getValue());
+        if(datapickerFrom.getValue()!=LocalDateTime.ofInstant(occ.getArrivaldate().toInstant(),ZoneId.systemDefault()).toLocalDate()){
+            
+            occ.setArrivaldate(Date.from(datapickerFrom.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         
         }
-        if(datapickerTo.getValue()!=occ.getDeparturedate()){
+        if(datapickerTo.getValue()!=LocalDateTime.ofInstant(occ.getDeparturedate().toInstant(),ZoneId.systemDefault()).toLocalDate()){
           
-            occ.setDeparturedate(datapickerTo.getValue());
+            occ.setDeparturedate(Date.from(datapickerTo.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         }
         if(roomid!=occ.getRoom().getId()){
             
@@ -373,6 +420,7 @@ public class ResguiController implements Initializable, InterResSearchResultList
          }
          
           if(overlaps!=null){
+               log.debug("Function Save:OldRecord:Overlaps-no");
                         if(overlaps.size()>=1){
                             String Test=overlaps.get(1);
                             int i;
@@ -411,6 +459,99 @@ public class ResguiController implements Initializable, InterResSearchResultList
                                }
                         }
                }
+            log.debug("Function Save:OldRecord exit");
+        }
+        
+         if(createNewRecord=true){
+             log.debug("Function Save: Newrecord");
+        Date SaveFromDate=occ.getArrivaldate();
+        Date SaveToDate=occ.getDeparturedate();
+        long SaveRoomId=occ.getRoom().getId();
+        long SaveAddressId=occ.getGuest().getId();
+        long ResNo=res.getNewResNumber();
+            
+      
+         res.createNewEmptyRecord();
+         res.setAddresses(address.getDataRecord(ordererid));  // Set Addressrecord
+                      
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.mm.yyyy");
+          // Set dates for  OCC
+            occ.createNewEmptyRecord();
+            occ.setArrivaldate(Date.from(datapickerFrom.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            occ.setDeparturedate(Date.from(datapickerTo.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            occ.setRoom(room.getDataRecord(roomid));
+            occ.setGuest(address.getDataRecord(guestid));
+            cscs.setRate(rate.getDataRecord(rateid));
+            accs.createNewEmptyRecord();
+            accs.setAddress(address.getDataRecord(guestid));
+            accs.saveRecord();
+            occ.setAccount(accs.getLastRecord());
+             
+             
+         List<String>overlaps=new ArrayList<String>();  
+         overlaps=occ.CheckForOverlappingReservations();  
+         if(overlaps==null){
+            res.setResno(String.valueOf(ResNo));
+             
+             res.setArrivaldate(formatter.format(occ.getArrivaldate()));
+             res.setDeparturedate(formatter.format(occ.getDeparturedate()));
+             
+             
+             res.saveRecord();
+             occ.setRes(res.getLastRecord());
+             overlaps=occ.saveRecord(true);
+             
+             
+             cscs.saveRecord();
+             System.out.println("Ok");
+         }
+             
+                 
+          if(overlaps!=null){
+              log.debug("Function Save:NewRecord:Overlaps-no");
+                        if(overlaps.size()>=1){
+                            String Test=overlaps.get(1);
+                            int i;
+                            for (i=0;i==overlaps.size();i++){
+                               Test=Test+ ", " +overlaps.get(i);
+                            }
+                            
+                           int iol=  JOptionPane.showOptionDialog(null, Test, "Rooms is Occupied by",JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE,null,new String[]{"create Reservation","drop Reservation","Cancel"},"Cancel");
+                            
+                               switch(iol ){
+                                   case 0:{
+                                      
+                                        res.setArrivaldate(occ.getArrivaldate().toString());
+                                        res.setDeparturedate(occ.getDeparturedate().toString());
+                                        res.saveRecord();
+                                        cscs.saveRecord();
+                                       System.out.println("res adjusted");
+                                       
+                                   }
+                                   case 1:{
+                                       System.out.println("res removed");
+                                       occ.setArrivaldate(SaveFromDate);
+                                       occ.setDeparturedate(SaveToDate);
+                                       occ.setRoom(room.getDataRecord(SaveRoomId));
+                                       occ.setGuest(address.getDataRecord(SaveAddressId));
+                                       res.setArrivaldate(occ.getArrivaldate().toString());
+                                        res.setDeparturedate(occ.getDeparturedate().toString());
+                                         overlaps=occ.saveRecord(true);
+                                         res.saveRecord();
+                                         cscs.saveRecord();
+                                   }
+                                   case 2:{
+                                        System.out.println("res");
+                                        
+                                   }
+                               }
+                        }
+                       log.debug("Function Save:newrecord exit");
+                           
+               }
+        }
+        log.debug("Function exit Save");
     }
 
     @FXML
@@ -446,8 +587,15 @@ public class ResguiController implements Initializable, InterResSearchResultList
     private void Toolbox_LastRecord(ActionEvent event) {
     }
     
+    /**
+     *
+     * @param id
+     */
     public void init(long id){
 
+        textfields=new ArrayList<TextField>();
+        
+        
         
         
         res = new resbean();
@@ -463,6 +611,26 @@ public class ResguiController implements Initializable, InterResSearchResultList
               FillWithSelectedData();
         
         
+        // Add Textfields 
+              
+          textfields.add(Orderer_Name_fxtxtfield);
+          textfields.add(Orderer_FirstName_fxtxtfield);
+          textfields.add(Orderer_Street_fxtxtfield);
+          textfields.add(Orderer_ZipCode_fxtxtfield);
+          textfields.add(Orderer_City_fxtxtfield);
+          textfields.add(Guest_firstName_fxtxtfield);
+          textfields.add(Guest_City_fxtxtfield);
+          textfields.add(Guest_Street_fxtxtfield);
+          textfields.add(Guest_ZipCode_fxtxtfield);
+          textfields.add(Guest_Name_fxtxtfield);
+          textfields.add(Room_Code_fxtxtfield);
+          textfields.add(ACC_No_fxtxtfield);
+          textfields.add(ACC_Balance_fxtxtfield);
+          textfields.add(RATE_Name_fxtxtfield);
+          
+          
+          
+          
         
     }
 
@@ -559,10 +727,14 @@ public class ResguiController implements Initializable, InterResSearchResultList
      
      
      private void fillDates(){
-         datapickerFrom.setValue(occ.getArrivaldate());
-         datapickerTo.setValue(occ.getDeparturedate());
+         datapickerFrom.setValue(LocalDateTime.ofInstant(occ.getArrivaldate().toInstant(),ZoneId.systemDefault()).toLocalDate());
+         datapickerTo.setValue(LocalDateTime.ofInstant(occ.getDeparturedate().toInstant(),ZoneId.systemDefault()).toLocalDate());
      }
     
+    /**
+     *
+     * @param e
+     */
     public void idinfo(InterResSearchResultEvent e) {
      if(e.getTableNameofSource()=="orderaddress"){
          fillOrderer(e.getDbRecordId());
@@ -583,7 +755,13 @@ public class ResguiController implements Initializable, InterResSearchResultList
     }
 
     @FXML
-    private void New(ActionEvent event) {
+    private void New(ActionEvent event) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+        for(TextField kk:textfields){
+            kk.setText("");
+        }
+       
+        createNewRecord=true;
+        
     }
 
     @FXML
@@ -632,11 +810,14 @@ public class ResguiController implements Initializable, InterResSearchResultList
 
     @FXML
     private void Action_From_Date(ActionEvent event) {
+        
        
     }
 
     @FXML
     private void Action_To_Date(ActionEvent event) {
+        
+        
     }
     
 }

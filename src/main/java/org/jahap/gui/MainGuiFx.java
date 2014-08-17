@@ -57,8 +57,6 @@ public class MainGuiFx implements Initializable {
     private TitledPane x1;
 
     @FXML
-    private AnchorPane AnchorPane;
-    @FXML
     private MenuItem newAddress;
 
 
@@ -79,6 +77,12 @@ public class MainGuiFx implements Initializable {
     private MenuItem DayClose_fxmenuitem;
     @FXML
     private MenuItem occplan_fxmenuitem;
+    @FXML
+    private MenuItem checkin;
+    @FXML
+    private MenuItem Checkcout;
+    @FXML
+    private MenuItem newReservation;
    
 
     @FXML
@@ -202,7 +206,45 @@ public class MainGuiFx implements Initializable {
     }
 
     @FXML
-    private void occplan(ActionEvent event) {
+    private void DoCheckin(ActionEvent event) {
+    }
+
+    @FXML
+    private void DoCheckout(ActionEvent event) {
+    }
+
+    @FXML
+    private void createNewReservation(ActionEvent event) throws IOException {
+        
+        Stage stage = new Stage();
+        String fxmlFile = "/fxml/resgui.fxml";
+       
+        FXMLLoader loader = new FXMLLoader();
+      
+        
+           AnchorPane page = (AnchorPane) loader.load(getClass().getResourceAsStream(fxmlFile));
+      
+            Scene scene = new Scene(page);
+            stage.setTitle("New reservation");
+            stage.setScene(scene);
+            stage.show();
+    }
+
+    @FXML
+    private void OpenOccplan(ActionEvent event) throws IOException {
+         Stage stage = new Stage();
+        String fxmlFile = "/fxml/occplan.fxml";
+       
+        FXMLLoader loader = new FXMLLoader();
+      
+        
+           AnchorPane page = (AnchorPane) loader.load(getClass().getResourceAsStream(fxmlFile));
+      
+            Scene scene = new Scene(page);
+            stage.setTitle("New reservation");
+            stage.setScene(scene);
+            stage.show();
+        
     }
     
 }

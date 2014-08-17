@@ -25,9 +25,11 @@
 package org.jahap.entities;
 
 import java.io.Serializable;
+import javax.annotation.Generated;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -60,6 +62,7 @@ public class Res implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID")
+     @GeneratedValue
     private Long id;
     @Size(max = 50)
     @Column(name = "ARRIVALTIME")

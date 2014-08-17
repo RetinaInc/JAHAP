@@ -33,8 +33,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+
 import org.jahap.business.res.DatabaseOperations;
 import org.jahap.entities.Accounts;
 import org.jahap.entities.Address;
@@ -57,11 +57,12 @@ public class occbean extends  DatabaseOperations implements occ_i{
     JahapDatabaseConnector dbhook;
     private static List<Occ> allrecordlist;
     private boolean createt=newEmptyRecordCreated;
-    
+    static Logger log = Logger.getLogger(occbean.class.getName());
     /**
      *
      */
     public occbean(){
+        log.debug("Function entry Contructor");
         long testg;
         dbhook = new JahapDatabaseConnector();
          
@@ -88,10 +89,11 @@ public class occbean extends  DatabaseOperations implements occ_i{
     
           System.out.println("=========>dbconnection");
            // If the table is yet empty, init List 
-        
+        log.debug("Function exit Contructor");
     }
     
     private void RefreshAllRecords(){
+        log.debug("Function entry RefreshAllRecords");
         try {
             allrecordlist.clear();
             query_AllDbRecords = dbhook.getEntity().createQuery("select t from Occ t ORDER BY t.id");
@@ -101,6 +103,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
             e.printStackTrace();
         }
         
+        log.debug("Function exit RefreshAllRecords");
     }
     
     
@@ -111,12 +114,13 @@ public class occbean extends  DatabaseOperations implements occ_i{
      * @return
      */
     public List<Occ>SearchForOcc(String searchstring){
-    
+        log.debug("Function entry SearchForOcc");
+                 
         return allrecordlist;
     }
     
      public List<Occ>SearchForOccforRes(Res res){
-    
+         log.debug("Function entry SearchForOccforRes");
         List<Occ>hl=new ArrayList<Occ>();
     int ind=-1;
       if(allrecordlist.size()>0) {
@@ -132,7 +136,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
         
         
       
-        
+         log.debug("Function exit SearchForOccforRes");
         return hl;
     }
     
@@ -143,6 +147,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
      */
     public void createNewEmptyRecord() {
         
+        log.debug("Function entry createNewEmptyRecord");
         if(tabelIsEmpty==true){
             allrecordlist = new ArrayList<Occ>();
             //numberOfLastRecord++;
@@ -169,6 +174,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
         currentRecordNumber=numberOfLastRecord;
         setNewEmptyRecordCreadted();
         tabelIsInit=true; // Set Tabel iniated - List is connected
+        log.debug("Function exit createNewEmptyRecord");
         
     }
     
@@ -186,6 +192,8 @@ public class occbean extends  DatabaseOperations implements occ_i{
         }
         
         private  List<Occ>validateRoom(List<Occ>vrooms){
+            log.debug("Function entry validateRoom");
+            
             int cont=0;
             
             do{
@@ -230,7 +238,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
               
                
               }while(cont<vrooms.size());
-            
+             log.debug("Function exit validateRoom");
             return vrooms;
               
         }
@@ -241,6 +249,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
      * @return
      */
     public List<String>CheckForOverlappingReservations(){
+           log.debug("Function entry checkForOverlappingReservations");
              List<Occ>vrooms=new ArrayList<Occ>();
             List<String>overlapping=new ArrayList<String>();
             int count=0;
@@ -273,11 +282,11 @@ public class occbean extends  DatabaseOperations implements occ_i{
                 
                 overlapping.add(vrooms.get(col).getRes().getResno());
                 col++;  
-             }while(col<vrooms.size());
+             }while(col<vrooms.size()-1);
              RefreshAllRecords();
             return overlapping;
         }
-             
+             log.debug("Function exit checkForOverlappingReservations");
              return null;
             
         }
@@ -285,6 +294,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
  //  ###########################   Rec Ops ##############       
         
         private List<String>saveNewRecord(){
+            log.debug("Function entry saveNewRecord");
             List<Occ>vrooms=new ArrayList<Occ>();
             List<String>overlapping=new ArrayList<String>();
             int count=0;
@@ -335,10 +345,12 @@ public class occbean extends  DatabaseOperations implements occ_i{
             return overlapping;
         }
            RefreshAllRecords();
+            log.debug("Function exit saveNewRecord");
         return overlapping;
         }
     
       private void saveOldRecord(){
+          log.debug("Function entry saveOldRecord ");
         if(newEmptyRecordCreated==false){
             dbhook.getEntity().getTransaction().begin();
             dbhook.getEntity().find(Occ.class,allrecordlist.get(currentRecordNumber).getId() );
@@ -346,6 +358,8 @@ public class occbean extends  DatabaseOperations implements occ_i{
             
             dbhook.getEntity().getTransaction().commit();
         }
+          log.debug("Function exit saveOldRecord");
+        
     }     
     
 
@@ -353,18 +367,26 @@ public class occbean extends  DatabaseOperations implements occ_i{
      *
      */
     public void nextRecordBackward() {
+        log.debug("Function entry nextRecordBackward");
+        
         if (currentRecordNumber>0) {
             currentRecordNumber--;
         }
+        
+        log.debug("Function exit nextRecordBackward");
     }
 
     /**
      *
      */
     public void nextRecordForeward() {
+        log.debug("Function entry nextRecordForeward");
+        
         if (currentRecordNumber<numberOfLastRecord) {
             currentRecordNumber++;
         }
+        
+        log.debug("Function exit nextRecordForeward");
     }
     /**
      *
@@ -378,10 +400,16 @@ public class occbean extends  DatabaseOperations implements occ_i{
    @Deprecated
    @Override 
    public void saveRecord(){}
-   
+    
     public List<String>saveRecord(boolean test){
+       
+        log.debug("Function entry saveRecord");
+         if (newEmptyRecordCreated==false){
+          saveOldRecord();    // Validation for old Record is needed
+      }
+        
          List<String>hh=new ArrayList<String>();
-        System.out.println(" äääääääääääää:" + String.valueOf(this.newEmptyRecordCreated));
+        System.out.println(" ->:" + String.valueOf(this.newEmptyRecordCreated));
         
          if (newEmptyRecordCreated==true){
             if(!tabelIsEmpty){    // Validate Date only if there are Records
@@ -419,10 +447,8 @@ public class occbean extends  DatabaseOperations implements occ_i{
                         setNewEmptyRecordSaved();
             }
           
-      if (newEmptyRecordCreated==false){
-          saveOldRecord();    // Validation for old Record is needed
-      }
-      
+     
+        log.debug("Function exit saveRecord");
       return null;
     }
     
@@ -431,6 +457,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
      * @return
      */
     public Long getId(){
+        
         if( tabelIsEmpty!=true) 
               return allrecordlist.get(currentRecordNumber).getId();
         return (long) 0;
@@ -627,7 +654,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
         try {
             dt=df.parse(arrivaldate);
         } catch (ParseException ex) {
-            Logger.getLogger(occbean.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
            if(tabelIsInit==false || tabelIsEmpty==true){
                     if(newEmptyRecordCreated!=true){
@@ -672,7 +699,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
         try {
             dt=df.parse(departuredate);
         } catch (ParseException ex) {
-            Logger.getLogger(occbean.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
         
         
@@ -705,7 +732,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
         try {
             dt=df.parse(arrivaltime);
         } catch (ParseException ex) {
-            Logger.getLogger(occbean.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
         
         if(tabelIsInit==false || tabelIsEmpty==true){
@@ -736,7 +763,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
         try {
             dt=df.parse(departuretime);
         } catch (ParseException ex) {
-            Logger.getLogger(occbean.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
         
         if(tabelIsInit==false || tabelIsEmpty==true){

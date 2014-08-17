@@ -24,7 +24,7 @@
 
 package org.jahap.gui;
 
-import com.google.common.eventbus.EventBus;
+
 import com.lowagie.text.pdf.hyphenation.TernaryTree;
 import java.io.IOException;
 import java.net.URL;

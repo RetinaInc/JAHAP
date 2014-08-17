@@ -27,15 +27,16 @@ package org.jahap.gui;
 
 import javax.swing.event.EventListenerList;
 import javax.swing.table.TableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author russ
  */
-public class ResSearchResult {
+public  class ResSearchResult {
     private long DbRecordId;
     private String TableNameofSource;
-
+ static Logger log = Logger.getLogger(ResSearchResult.class.getName());
    
     public long getDbRecordId() {
         return DbRecordId;

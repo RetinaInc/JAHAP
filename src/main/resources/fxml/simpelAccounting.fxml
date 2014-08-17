@@ -32,8 +32,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="783.0" prefWidth="1049.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.SimpelAccountingController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="783.0" prefWidth="1049.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jahap.gui.SimpelAccountingController">
   <children>
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
@@ -41,7 +40,7 @@ THE SOFTWARE.
           <children>
             <TextField fx:id="balance_fxtextbox" layoutX="400.0" layoutY="14.0" prefWidth="200.0">
               <tooltip>
-                <Tooltip text="Balance info" fx:id="balance_textbox_fxtooltip" />
+                <Tooltip fx:id="balance_textbox_fxtooltip" text="Balance info" />
               </tooltip>
             </TextField>
             <Label layoutX="342.0" layoutY="17.0" text="Balance" />
@@ -57,15 +56,15 @@ THE SOFTWARE.
                   <children>
                     <TableView fx:id="Account_tablefx" prefHeight="494.0" prefWidth="925.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <columns>
-                        <TableColumn prefWidth="75.0" text="Date" fx:id="date_Account_tablefx" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="45.0" text="No." fx:id="cAmount_Account_tablefxColumn" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="c Service" fx:id="cService_Account_tablefxColumn" />
-                        <TableColumn prefWidth="75.0" text="c Price" fx:id="cPrice_Account_tablefxColumn" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="70.0" text="Total" fx:id="cTotal_Account_tablefxColumn" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="52.0" text="No." fx:id="dAmount_Account_tablefxColumn" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="d Service" fx:id="dService_Account_tablefxColumn" />
-                        <TableColumn prefWidth="75.0" text="d Price" fx:id="dPrice_Account_tablefxColumn" />
-                        <TableColumn prefWidth="75.0" text="Total" fx:id="dTotal_Account_tablefxColumn" />
+                        <TableColumn fx:id="date_Account_tablefx" prefWidth="75.0" text="Date" />
+                        <TableColumn fx:id="cAmount_Account_tablefxColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="45.0" text="No." />
+                        <TableColumn fx:id="cService_Account_tablefxColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="c Service" />
+                        <TableColumn fx:id="cPrice_Account_tablefxColumn" prefWidth="75.0" text="c Price" />
+                        <TableColumn fx:id="cTotal_Account_tablefxColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="70.0" text="Total" />
+                        <TableColumn fx:id="dAmount_Account_tablefxColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="52.0" text="No." />
+                        <TableColumn fx:id="dService_Account_tablefxColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="d Service" />
+                        <TableColumn fx:id="dPrice_Account_tablefxColumn" prefWidth="75.0" text="d Price" />
+                        <TableColumn fx:id="dTotal_Account_tablefxColumn" prefWidth="75.0" text="Total" />
                       </columns>
                     </TableView>
                   </children>
@@ -79,35 +78,8 @@ THE SOFTWARE.
         <VBox prefHeight="525.0" prefWidth="146.99990000000253">
           <children>
             <Accordion minWidth="147.0" prefHeight="437.0" prefWidth="147.0">
-              <expandedPane>
-                <TitledPane fx:id="x4" animated="false" text="Invoice">
-                  <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                      <children>
-                        <Button id="createInvoice" fx:id="createInvoiceButton" layoutX="0.0" layoutY="0.0" mnemonicParsing="false" onAction="#createInvoice" prefHeight="34.0" prefWidth="142.0" text="Create Invoice" />
-                        <Button id="createInvoice" layoutX="0.0" layoutY="34.0" mnemonicParsing="false" onAction="#MovePosition" prefHeight="34.0" prefWidth="142.0" text="Move To:" />
-                        <ChoiceBox fx:id="movePositionToBillChoiceBox" layoutX="0.0" layoutY="68.0" prefHeight="34.0" prefWidth="142.0">
-                          <tooltip>
-                            <Tooltip text="Move Selected Position to Bill" />
-                          </tooltip>
-                        </ChoiceBox>
-                        <Button id="removePosfromBill" fx:id="removePosfromBillbutton" layoutX="0.0" layoutY="102.0" mnemonicParsing="false" onAction="#removePosfromBill" prefHeight="34.0" prefWidth="142.0" text="Del BillPos">
-                          <font>
-                            <Font size="15.0" />
-                          </font>
-                          <tooltip>
-                            <Tooltip text="Delete selected Position from Bill" />
-                          </tooltip>
-                        </Button>
-                        <Button fx:id="PrintAndCloseBill_FxButton" layoutX="0.0" layoutY="339.0" mnemonicParsing="false" onAction="#PrintAndCloseBill" prefHeight="36.0" prefWidth="142.0" text="Print &amp; Close Bill" />
-                       
-                      </children>
-                    </AnchorPane>
-                  </content>
-                </TitledPane>
-              </expandedPane>
               <panes>
-                <TitledPane fx:id="x3" animated="false" minWidth="162.0" prefHeight="332.0" prefWidth="205.0" text="Account">
+                <TitledPane animated="false" minWidth="162.0" prefHeight="332.0" prefWidth="205.0" text="Account" fx:id="x3">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="296.0" prefWidth="142.0">
                       <children>
@@ -130,7 +102,32 @@ THE SOFTWARE.
                     </AnchorPane>
                   </content>
                 </TitledPane>
-                <fx:reference source="x4" />
+                <TitledPane animated="false" text="Invoice" fx:id="x4">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <Button id="createInvoice" fx:id="createInvoiceButton" layoutX="0.0" layoutY="0.0" mnemonicParsing="false" onAction="#createInvoice" prefHeight="34.0" prefWidth="142.0" text="Create Invoice" />
+                        <Button id="createInvoice" layoutX="0.0" layoutY="34.0" mnemonicParsing="false" onAction="#MovePosition" prefHeight="34.0" prefWidth="142.0" text="Move To:" />
+                        <ChoiceBox fx:id="movePositionToBillChoiceBox" layoutX="0.0" layoutY="68.0" prefHeight="34.0" prefWidth="142.0">
+                          <tooltip>
+                            <Tooltip text="Move Selected Position to Bill" />
+                          </tooltip>
+                        </ChoiceBox>
+                        <Button id="removePosfromBill" fx:id="removePosfromBillbutton" layoutX="0.0" layoutY="102.0" mnemonicParsing="false" onAction="#removePosfromBill" prefHeight="34.0" prefWidth="142.0" text="Del BillPos">
+                          <font>
+                            <Font size="15.0" />
+                          </font>
+                          <tooltip>
+                            <Tooltip text="Delete selected Position from Bill" />
+                          </tooltip>
+                        </Button>
+                        <Button fx:id="PrintInvoice_FxButton" layoutY="290.0" mnemonicParsing="false" onAction="#PrintInvoice" prefHeight="36.0" prefWidth="142.0" text="Print Invoice" />
+                                    <Button fx:id="CloseInvoice_FxButton1" layoutY="326.0" mnemonicParsing="false" onAction="#CloseInvoice" prefHeight="36.0" prefWidth="142.0" text="Close Invoice" />
+                       
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </TitledPane>
               </panes>
             </Accordion>
             <Separator prefHeight="61.0" prefWidth="124.0" />
@@ -141,7 +138,7 @@ THE SOFTWARE.
       <top>
         <Accordion prefHeight="153.0" prefWidth="953.0">
           <panes>
-            <TitledPane fx:id="x1" animated="false" text="Account">
+            <TitledPane animated="false" text="Account" fx:id="x1">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
@@ -153,7 +150,7 @@ THE SOFTWARE.
                 </AnchorPane>
               </content>
             </TitledPane>
-            <TitledPane fx:id="x2" animated="false" text="Reservation">
+            <TitledPane animated="false" text="Reservation" fx:id="x2">
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
