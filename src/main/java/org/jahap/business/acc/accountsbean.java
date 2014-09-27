@@ -31,8 +31,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,10 +50,10 @@ import org.jahap.entities.Bill;
 import org.jahap.entities.Csc;
 import org.jahap.entities.JahapDatabaseConnector;
 import org.jahap.entities.Occ;
+import org.jahap.entities.Payed;
 import org.jahap.entities.Rates;
 import org.jahap.entities.Res;
 import org.jahap.entities.Revenue;
-
 import org.jahap.entities.Vat;
 
 /**
@@ -72,7 +74,7 @@ public class accountsbean extends DatabaseOperations implements accounts_i{
     public accountsbean(){
         // cscServices=new cscbean();
         long testg;
-        dbhook = new JahapDatabaseConnector();
+        dbhook = JahapDatabaseConnector.getConnector();
         cscServices= new cscbean();
          
         try {
@@ -505,6 +507,24 @@ public class accountsbean extends DatabaseOperations implements accounts_i{
      
         log.debug("Function exit addPosition ");
     }
+    
+    public  void addPayment(Payed pm){
+        log.debug("Function entry addPayment");
+           Calendar cal  = Calendar.getInstance();
+           accountspositionbean test = new accountspositionbean();
+           test.createNewEmptyRecord();
+           test.setAccount(allrecordlist.get(this.currentRecordNumber));
+           test.setAmount(1);
+           test.setPrice(pm.getTotal());
+           test.setDebit(!pm.getDebit());// if in payment is debit it mus be cedit in pos
+           test.setPositionname(pm.getPaymenttype().getName() + " Receipt:" + pm.getId());
+           test.setRatedate(cal.getTime());
+           
+           test.saveRecord();
+           log.debug("Function exit addPayment");
+    }
+    
+    
     
      public void  cancelPosition(Rates r,int amount, long canceledposition, double price,String positioname){
       Calendar cal  = Calendar.getInstance();

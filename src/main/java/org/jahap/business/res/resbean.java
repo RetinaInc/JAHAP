@@ -53,7 +53,7 @@ public class resbean extends DatabaseOperations implements res_i {
      */
     public resbean(){
         long testg;
-        dbhook = new JahapDatabaseConnector();
+        dbhook = JahapDatabaseConnector.getConnector();
          
          
         try {

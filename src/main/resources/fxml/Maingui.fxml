@@ -31,9 +31,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.000199999995" prefWidth="919.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="org.jahap.gui.MainGuiFx">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.0" prefWidth="934.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jahap.gui.MainGuiFx">
   <children>
-    <BorderPane prefHeight="766.000199999995" prefWidth="919.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <BorderPane layoutX="-1.0" layoutY="-1.0" prefHeight="766.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-5.0" AnchorPane.topAnchor="-1.0">
       <bottom>
         <HBox alignment="TOP_RIGHT" prefHeight="58.0" prefWidth="919.0000999999975" BorderPane.alignment="TOP_RIGHT">
           <children>
@@ -47,29 +47,13 @@ THE SOFTWARE.
           </children>
         </HBox>
       </bottom>
-      <left>
-        <Accordion>
-          <panes>
-            <TitledPane animated="false" text="untitled" fx:id="x1">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" text="untitled">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </TitledPane>
-          </panes>
-        </Accordion>
-      </left>
       <padding>
         <Insets />
       </padding>
       <top>
-        <VBox maxHeight="-Infinity" minHeight="50.0" prefHeight="86.99990000000253" prefWidth="919.0" BorderPane.alignment="TOP_RIGHT">
+        <VBox maxHeight="-Infinity" minHeight="50.0" prefHeight="88.0" prefWidth="925.0" BorderPane.alignment="TOP_RIGHT">
           <children>
-            <MenuBar VBox.vgrow="ALWAYS">
+            <MenuBar prefHeight="32.0" prefWidth="936.0" VBox.vgrow="ALWAYS">
               <menus>
                 <Menu mnemonicParsing="false" text="Base Data">
                   <items>
@@ -77,6 +61,7 @@ THE SOFTWARE.
                     <MenuItem fx:id="AdressSearch" mnemonicParsing="false" onAction="#AdressSearch" text="Search for Address" />
                     <MenuItem fx:id="Rates" mnemonicParsing="false" onAction="#OpenRatesSearch" text="Rates" />
                     <MenuItem fx:id="Rooms" mnemonicParsing="false" onAction="#RoomsSearch" text="Rooms" />
+                    <MenuItem fx:id="HotelPrefMenuItem" mnemonicParsing="false" onAction="#HotelPrefMenu" text="Hotel" />
                     <MenuItem fx:id="Exit" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
@@ -84,23 +69,51 @@ THE SOFTWARE.
                   <items>
                     <MenuItem fx:id="checkin" mnemonicParsing="false" onAction="#DoCheckin" text="Check-In" />
                     <MenuItem fx:id="Checkcout" mnemonicParsing="false" onAction="#DoCheckout" text="Check-Out" />
-                    <MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewReservation" text="New Reservation" />
-                    <MenuItem fx:id="FO_SearchForReservation_fxmenuitem" mnemonicParsing="false" onAction="#FO_SearchForReservation" text="Search for Reservation" />
+                              <MenuItem mnemonicParsing="false" text="Arrivals" />
+                              <MenuItem mnemonicParsing="false" text="Departures" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem fx:id="searchForGuestAccount_fxmenuitem" mnemonicParsing="false" onAction="#searchForGuestAccount" text="Guest Account" />
+                              <Menu mnemonicParsing="false" text="Guest accounts reports">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                                </items>
+                              </Menu>
+                              <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem fx:id="DayClose_fxmenuitem" mnemonicParsing="false" onAction="#DayClose" text="Day Close" />
                     <MenuItem fx:id="occplan_fxmenuitem" mnemonicParsing="false" onAction="#OpenOccplan" text="Occupancy Plan" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Preference">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Rooms" />
-                    <MenuItem mnemonicParsing="false" text="Settings" />
-                    <MenuItem mnemonicParsing="false" text="Hotel" />
-                  </items>
-                </Menu>
+                        <Menu mnemonicParsing="false" text="Reservation">
+                          <items>
+                    <MenuItem fx:id="newReservation" mnemonicParsing="false" onAction="#createNewReservation" text="New Reservation" />
+                    <MenuItem fx:id="FO_SearchForReservation_fxmenuitem" mnemonicParsing="false" onAction="#FO_SearchForReservation" text="Search for Reservation" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="House Managment">
+                          <items>
+                              <MenuItem mnemonicParsing="false" text="Room cleaning" />
+                            <MenuItem mnemonicParsing="false" text="Room maintenance" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <Menu mnemonicParsing="false" text="Houskeeping Reports">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                                </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Maintenance Reports">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                                </items>
+                              </Menu>
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="House administration">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Chef Info" />
+                          </items>
+                        </Menu>
               </menus>
             </MenuBar>
-            <ToolBar prefHeight="57.0" prefWidth="918.9998779296875" VBox.vgrow="ALWAYS">
+            <ToolBar prefHeight="56.0" prefWidth="923.0" VBox.vgrow="ALWAYS">
               <items>
                 <Button mnemonicParsing="false" text="Button" />
               </items>

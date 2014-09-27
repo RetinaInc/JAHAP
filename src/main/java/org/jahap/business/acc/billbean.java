@@ -40,13 +40,13 @@ public class billbean extends DatabaseOperations implements bill_i{
        
          log.debug("Function entry billbean");
         long testg;
-        dbhook = new JahapDatabaseConnector();
+        dbhook = JahapDatabaseConnector.getConnector();
          
          
         try {
            
             query_AllDbRecords = dbhook.getEntity().createQuery("select t from Bill t ORDER BY t.id");
-            List<AccountPosition>alladdresseslist= query_AllDbRecords.getResultList();
+            List<Bill>alladdresseslist= query_AllDbRecords.getResultList();
             numberOfLastRecord= alladdresseslist.size()-1;
         } catch (Exception e) {
             numberOfLastRecord=0;

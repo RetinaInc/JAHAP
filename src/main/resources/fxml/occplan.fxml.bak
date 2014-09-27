@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="953.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.jahap.gui.SimpelAccountingController">
+  <children>
+    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <Pane prefHeight="105.0" prefWidth="723.0">
+          <children>
+            <TextField fx:id="balance_fxtextbox" layoutX="400.0" layoutY="14.0" prefWidth="200.0">
+              <tooltip>
+                <Tooltip text="Balance info" fx:id="balance_textbox_fxtooltip" />
+              </tooltip>
+            </TextField>
+            <Label layoutX="342.0" layoutY="17.0" text="Balance" />
+          </children>
+        </Pane>
+      </bottom>
+      <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" rotateGraphic="false" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="20.0" tabMinHeight="20.0">
+          <tabs>
+            <Tab text="Account">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <TableView fx:id="Account_tablefx" layoutX="0.0" layoutY="0.0" prefHeight="501.0" prefWidth="829.0" tableMenuButtonVisible="true">
+                      <columns>
+                        <TableColumn prefWidth="75.0" text="Date" fx:id="date_Account_tablefx" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="45.0" text="No." fx:id="cAmount_Account_tablefxColumn" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="c Service" fx:id="cService_Account_tablefxColumn" />
+                        <TableColumn prefWidth="75.0" text="c Price" fx:id="cPrice_Account_tablefxColumn" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="70.0" text="Total" fx:id="cTotal_Account_tablefxColumn" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="52.0" text="No." fx:id="dAmount_Account_tablefxColumn" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="d Service" fx:id="dService_Account_tablefxColumn" />
+                        <TableColumn prefWidth="75.0" text="d Price" fx:id="dPrice_Account_tablefxColumn" />
+                        <TableColumn prefWidth="75.0" text="Total" fx:id="dTotal_Account_tablefxColumn" />
+                      </columns>
+                    </TableView>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Bill">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </center>
+      <right>
+        <VBox prefHeight="395.0" prefWidth="124.0">
+          <children>
+            <Button fx:id="addArticle" mnemonicParsing="false" onAction="#addArticle" prefHeight="34.0" prefWidth="124.0" text="Add Article" />
+            <Button fx:id="cancleArticle" mnemonicParsing="false" onAction="#cancleArticle" prefHeight="34.0" prefWidth="124.0" text="Cancel Article" />
+            <Button fx:id="editArticle" mnemonicParsing="false" onAction="#editArticle" prefHeight="34.0" prefWidth="124.0" text="Edit Article" />
+            <Button fx:id="editRates" mnemonicParsing="false" onAction="#editRates" prefHeight="34.0" prefWidth="124.0" text="Edit Rates">
+              <tooltip>
+                <Tooltip text="Edit rates which are charged during the stay." />
+              </tooltip>
+            </Button>
+            <Button fx:id="printOverview" mnemonicParsing="false" onAction="#printOverview" prefHeight="34.0" prefWidth="124.0" text="Print Overview" />
+            <Button fx:id="createInvoice" mnemonicParsing="false" onAction="#createInvoice" prefHeight="34.0" prefWidth="124.0" text="Create Invoice" />
+            <Button fx:id="closeAccount" mnemonicParsing="false" onAction="#closeAccount" prefHeight="34.0" prefWidth="124.0" text="Close Account" />
+            <Button id="closeAccount" fx:id="AdvancedChargeRates" mnemonicParsing="false" onAction="#AdvancedChargeRates" prefHeight="34.0" prefWidth="124.0" text="Charge Rates">
+              <tooltip>
+                <Tooltip text="Charge Rate in advance" />
+              </tooltip>
+            </Button>
+          </children>
+        </VBox>
+      </right>
+      <top>
+        <Accordion prefHeight="153.0" prefWidth="953.0">
+          <expandedPane>
+            <TitledPane fx:id="x2" animated="false" text="Reservation">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <Label layoutX="23.0" layoutY="14.0" text="from:" />
+                    <Label layoutX="353.0" layoutY="18.0" text="to:" />
+                    <TextField layoutX="69.0" layoutY="14.0" prefWidth="147.0" />
+                    <TextField layoutX="384.0" layoutY="14.0" prefWidth="147.0" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+          </expandedPane>
+          <panes>
+            <TitledPane fx:id="x1" animated="false" text="Account">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <Label layoutX="27.0" layoutY="14.0" text="room:" />
+                    <TextField layoutX="78.0" layoutY="14.0" prefWidth="147.0" />
+                    <Label layoutX="279.0" layoutY="14.0" text="guest:" />
+                    <TextField layoutX="333.0" layoutY="14.0" prefWidth="200.0" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+            <fx:reference source="x2" />
+          </panes>
+        </Accordion>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>

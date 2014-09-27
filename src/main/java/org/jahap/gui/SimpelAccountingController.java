@@ -30,18 +30,18 @@ package org.jahap.gui;
 
 import java.io.IOException;
 import java.net.URL;
-
-import org.apache.log4j.Logger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -75,9 +75,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javax.print.DocFlavor;
+import org.apache.log4j.Logger;
+import org.dbunit.database.statement.IStatementFactory;
 import org.jahap.business.acc.accountsbean;
 import org.jahap.business.acc.accountspositionbean;
 import org.jahap.business.acc.billbean;
+import org.jahap.business.acc.payedbean;
+import org.jahap.business.base.Paymenttypesbean;
 import org.jahap.business.base.ratesbean;
 import org.jahap.entities.AccountPosition;
 import org.jahap.entities.Accounts;
@@ -91,25 +95,36 @@ import static org.jahap.gui.BillTabs.log;
  * @author russ
  */
 public class SimpelAccountingController implements Initializable, InterAccSearchResultListener{
-
+        
     static Logger log = Logger.getLogger(SimpelAccountingController.class.getName());
     
     
+    @FXML
         private TableView Account_tablefx;
     
              private TableColumn<viewAccountPositionsProperty, String>id_Account_tablefx;                                                   
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> date_Account_tablefx;
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> cService_Account_tablefxColumn;
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> cAmount_Account_tablefxColumn;
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> dService_Account_tablefxColumn;
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> dAmount_Account_tablefxColumn;
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> cPrice_Account_tablefxColumn;
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> dPrice_Account_tablefxColumn;
    
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> cTotal_Account_tablefxColumn;
+    @FXML
                 private TableColumn<viewAccountPositionsProperty, String> dTotal_Account_tablefxColumn;
     
     
+    @FXML
         private TextField balance_fxtextbox;
     //private List<viewAccountPositions> accview;
     private InterAccSearchResult accsearchresult;
@@ -119,17 +134,21 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
     private long rateid=0;
     //private ObservableList<viewAccountPositions> data;
     final ObservableList<viewAccountPositionsProperty> datam=FXCollections.observableArrayList();
+    @FXML
         private Tooltip balance_textbox_fxtooltip;
   
     private ObservableList<String> tempBills=FXCollections.observableArrayList();
     
+    @FXML
         private Tab Account;
     
     
     
     private List<AccountViewer> accViewList;
   
+    @FXML
         private ChoiceBox<String> movePositionToBillChoiceBox;
+    @FXML
         private TabPane AccountTab;
     
    
@@ -140,7 +159,43 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
     
     
     private List<BillTabs> billtablist;
+    @FXML
+    private TitledPane x1;
+    @FXML
+    private TitledPane x2;
+    @FXML
+    private TitledPane x3;
+    @FXML
+    private Button addArticle;
+    @FXML
+    private Button cancleArticle;
+    @FXML
+    private Button editArticle;
+    @FXML
+    private Button editRates;
+    @FXML
+    private Button printOverview;
+    @FXML
+    private Button closeAccount;
+    @FXML
+    private Button AdvancedChargeRates;
+    @FXML
+    private TitledPane x4;
+    @FXML
+    private Button createInvoiceButton;
+    @FXML
+    private Button removePosfromBillbutton;
+    @FXML
+    private Button PrintInvoice_FxButton;
+    @FXML
+    private Button CloseInvoice_FxButton1;
 
+      @FXML
+    private Button addPayment1;
+
+    @FXML
+    private Button addPayment;
+    
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
@@ -190,68 +245,79 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
          billbean jjk= new billbean();
                     AccountPosition zw=new AccountPosition();
                       viewAccountPositionsProperty bz;
-               try {
+               
             for (Iterator<AccountPosition> iAccPos = acc.getAccountPositionCollection().iterator(); iAccPos.hasNext();) {
-                
-                bz = new viewAccountPositionsProperty();
-                zw = iAccPos.next();
-                bz.setRatedate(zw.getRatedate());                
-                bz.setDebit(zw.getDebit());
-                bz.setId(zw.getId());
-                bz.setBilled(zw.getBilled());
-                bz.setCanceled(zw.isCanceled());
-                
-                
-                if(zw.getBill()!=0){
-                      
-                    bz.setIsTempBill(jjk.getDataRecord(zw.getBill()).isTemp_bill());
-                
-                
-               
-                    //DEV: Warning: Record returns Null Parameter:? Catch??
-                    if(jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equalsIgnoreCase(jjk.getDataRecord(zw.getBill()).getBillname()) ){
-                        bz.setBillnamestring(jjk.getDataRecord(zw.getBill()).getBillname());
-                    }
-         
+                 bz = new viewAccountPositionsProperty();
+                try {
                     
+                    zw = iAccPos.next();
+                    bz.setRatedate(zw.getRatedate());                    
+                    bz.setDebit(zw.getDebit());
+                    bz.setId(zw.getId());
+                    bz.setBilled(zw.getBilled());
+                    bz.setCanceled(zw.isCanceled());
+                } catch (Exception e) {
+                    log.debug("Function testinittable " + e.toString() );
+                }
                 
-              
-                  
-                      if(!jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equals(jjk.getDataRecord(zw.getBill()).getBillname())){   //   
-                        bz.setBillno(zw.getBill());
-                      }
-               
+                log.debug("testinittable " + zw.getId().toString());
                 
-                }else{
-                    bz.setBillno(0); 
-                    bz.setBillnamestring("");
+                try {
+                    if (zw.getBill() != 0) {
+                        
+                        bz.setIsTempBill(jjk.getDataRecord(zw.getBill()).isTemp_bill());
+
+                        //DEV: Warning: Record returns Null Parameter:? Catch??
+                        if (jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equalsIgnoreCase(jjk.getDataRecord(zw.getBill()).getBillname())) {
+                            bz.setBillnamestring(jjk.getDataRecord(zw.getBill()).getBillname());
+                        }
+                        
+                        if (!jjk.getDataRecord(zw.getBill()).isTemp_bill() && !"ZEROBILL".equals(jjk.getDataRecord(zw.getBill()).getBillname())) {   //   
+                            bz.setBillno(zw.getBill());
+                        }
+                        
+                    } else {
+                        bz.setBillno(0);                        
+                        bz.setBillnamestring("");
+                    }
+                } catch (Exception e) {
+                    log.debug("Function testinittable " + e.toString() );
                 }
            
                 // ############### Split Credit Row  #####################      
-                if (zw.getDebit() == false) {
-                    bz.setcAmount(zw.getAmount());
-                    bz.setCpositionname(zw.getPositionname());
-                    bz.setcRateid(zw.getRate().getId());
-                    bz.setcPrice(zw.getPrice());
-                    
-                }                
+                try {
+                    if (zw.getDebit() == false) {
+                        bz.setcAmount(zw.getAmount());
+                        bz.setCpositionname(zw.getPositionname());
+                        bz.setcRateid(zw.getRate().getId());
+                        bz.setcPrice(zw.getPrice());
+                        
+                    }                    
+                } catch (Exception e) {
+                    log.debug("Function testinittable " + e.toString() );
+                }
                 
-                if (zw.getDebit() == true) {
-                    bz.setdAmount(zw.getAmount());
-                    bz.setDpositionname(zw.getPositionname());
-                    bz.setdRateid(zw.getRate().getId());
-                    bz.setdPrice(zw.getPrice());
-                    
+                try {
+                    if (zw.getDebit() == true) {
+                        bz.setdAmount(zw.getAmount());
+                        bz.setDpositionname(zw.getPositionname());
+                        try {
+                            bz.setdRateid(zw.getRate().getId());
+                        } catch (Exception e) {
+                             log.debug("Function testinittable Split Credit Row" + e.toString() );
+                        }
+                        bz.setdPrice(zw.getPrice());
+                        
+                    }
+                } catch (Exception e) {
+                    log.debug("Function testinittable Split Credit Row" + e.toString() );
                 }
 
                 // accview.add(bz);
                 datam.add(bz);
             
             }            
-        } catch (Exception e) {
-            System.err.print("----<property set >----");
-            e.printStackTrace();
-        }
+        
                
                TabPane gg=Account.getTabPane();
                billtablist= new ArrayList<BillTabs>();
@@ -392,7 +458,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                                  
                          @Override
                          public void updateItem(String item, boolean empty) {
-                             log.debug("Function entry updateItem Table Format row");
+                             log.debug("Function entry updateItem Table Format row " + item);
                              try {
                                  Tooltip tol = new Tooltip("Info");
                                  
@@ -542,6 +608,7 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
     
     
     
+    @FXML
         private void addArticle(ActionEvent event) throws IOException {
         log.debug("Function entry");
          Stage stage = new Stage();
@@ -563,8 +630,9 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
         stage.showAndWait();
         
         log.debug("Function exit buildTable");
-    }
-
+       
+ }
+        @FXML
         private void cancleArticle(ActionEvent event) {
         log.debug("Function entry cancleArticle");
         Calendar cal  = Calendar.getInstance();
@@ -605,8 +673,9 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
         }
         }
         log.debug("Function exit cancleArticle");
-    }
-
+       
+ }
+        @FXML
         private void editArticle(ActionEvent event) throws IOException {
 ////////////        
         log.debug("Function entry editArticle");
@@ -644,7 +713,8 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
     //@Subscribe
    
     
-    
+     @FXML
+   
         private void editRates(ActionEvent event) throws IOException {
         log.debug("Function entry editRates");
         Stage stage = new Stage();
@@ -665,13 +735,15 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
         // accsearchresult,this,"rate"
         stage.showAndWait();
         log.debug("Function exit editRates");
-    }
-
+       
+ }
+        @FXML
         private void printOverview(ActionEvent event) {
         log.debug("Function entry printOverview");
         log.debug("Function exit printOverview");
-    }
-
+      
+ }
+         @FXML
         private void createInvoice(ActionEvent event) {
         log.debug("Function entry createInvoice");
                 
@@ -684,13 +756,15 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
         log.debug("Function exit createInvoice");
                 
                 
-    }
-
+       
+ }
+        @FXML
         private void closeAccount(ActionEvent event) {
         log.debug("Function entry closeAccount");
         log.debug("Function exit closeAccount");
-    }
-
+       
+ }
+        @FXML
         private void AdvancedChargeRates(ActionEvent event) {
         log.debug("Function entry AdvancedChargeRates");
         log.debug("Function exit AdvancedChargeRates");
@@ -698,6 +772,38 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
 
     public void idinfo(InterAccSearchResultEvent e) {
         log.debug("Function entry idinfo");
+        ObservableList<viewAccountPositionsProperty>  gg = FXCollections.observableArrayList();
+        gg=Account_tablefx.getSelectionModel().getSelectedItems();
+        if(e.getTableNameofSource()=="paymenttype"){
+                log.debug("Action reaction - add payment -"); 
+                //create payment 
+                payedbean py=new payedbean(); 
+                Paymenttypesbean pyT= new Paymenttypesbean();
+                py.createNewEmptyRecord();
+                py.setPaymenttype(pyT.getDataRecord(e.getDbRecordId()));
+                
+                py.setTotal(Double.valueOf(e.getDatamap().get("total").toString()));
+                py.saveRecord();
+                // add payment for each pos
+                for(viewAccountPositionsProperty dd:gg){
+                    dd.setPayment(py.getLastPosition());
+                    acc.adjustPosition(dd.getId(),dd.getAccountPosition());
+                }
+                
+                //add Payment as Debit Pos
+                viewAccountPositionsProperty jj=new  viewAccountPositionsProperty();
+                jj.setDpositionname(py.getLastPosition().getPaymenttype().getName() + " Receipt:" + py.getLastPosition().getId() );
+                jj.setdAmount(1);
+                jj.setdPrice(py.getLastPosition().getTotal());
+                jj.setPayment(py.getLastPosition());
+                acc.addPayment(py.getLastPosition());
+                datam.add(jj);
+                
+                
+                
+        }
+        
+        
          if(e.getTableNameofSource()=="rate"){
              log.debug("Action reaction - add article -");  
            System.out.println("Rate" + String.valueOf(e.getDbRecordId()));
@@ -740,11 +846,36 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                          String.valueOf(acc.getSumofDebitsPos()));
                   System.err.println("After");
        }
-        log.debug("Function exit idinfo");
-}
+        log.debug("Function exit idinfo");    
 
+}
+        @FXML
         private void MovePosition(ActionEvent event) {
         log.debug("Function entry MovePosition" );
+        //------------- Move all payed Pos to selection   -----       
+        ObservableList<viewAccountPositionsProperty> klm=  Account_tablefx.getSelectionModel().getSelectedItems();
+        ArrayList payment=new ArrayList<>();
+        HashSet hs = new HashSet<>();
+        int ik=klm.size()-1;
+        for(int io=0;io<=ik;io++){     // Search for Pos which has been payed for. 
+            if( klm.get(io).getPayment()!=null){
+                  hs.add(klm.get(io).getPayment()); // add Pos then to memList
+                  klm.remove(io);   // remove from selection List
+            }
+        }
+            
+        payment.addAll(hs);
+        int zu;
+        for(int kk=0;kk<=payment.size()-1;kk++){
+            for(viewAccountPositionsProperty jj:datam){  //find payment in MainList compared to memlist an add back to selection list
+                     if(payment.get(kk).equals(jj.getPayment())){
+                         klm.add(jj);
+                     }
+            }
+        }
+        //################### Move all payed Pos to selection ###############
+        
+        //------------------- Move Selection to temp Bill ---------------
         for(Iterator<BillTabs> k= billtablist.listIterator();k.hasNext();){
              BillTabs ko=k.next();
                     if(ko.getBillname()==movePositionToBillChoiceBox.getValue()){
@@ -766,7 +897,11 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
                         if(haki==true){
                         for (viewAccountPositionsProperty kj:jh){
                                  kj.setIsTempBill(true);
+                                 
                         }
+                        
+                        
+                        
                         ko.addPositions(jh); // add all marked Position
                          for(Iterator<viewAccountPositionsProperty> lop=jh.listIterator();lop.hasNext();){
                                viewAccountPositionsProperty fou=lop.next();
@@ -787,9 +922,19 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
         private void PrintAndCloseBill(ActionEvent event) {
         log.debug("Function entry PrintAndCloseBill");
         log.debug("Function exit PrintAndCloseBill");
+        }
                 
-                
+       @FXML
+    private void PrintInvoice(ActionEvent event) {
+            
     }
+    
+     @FXML
+    private void CloseInvoice(ActionEvent event) {
+    }
+
+
+
 
 
  
@@ -847,9 +992,11 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
             return jlk;
         }
         
-    }
+    } 
+     
     
     
+        @FXML
         private void Save(ActionEvent event) {
          log.debug("Function entry Save");
         // ######### Saves TempBill ##########
@@ -900,8 +1047,8 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
         hj.saveRecord();
         log.debug("Function exit Save");
     }
-     
-        private void removePosfromBill(ActionEvent event) {
+      @FXML
+      private void removePosfromBill(ActionEvent event) {
         log.debug("Function entry removePosfromBill");
        List<viewAccountPositionsProperty>kjh; 
        billbean jjj= new billbean();
@@ -947,4 +1094,47 @@ public class SimpelAccountingController implements Initializable, InterAccSearch
         log.debug("Function exit removePosfromBill");
     }
     
+       @FXML
+    void addPayment(ActionEvent event) throws IOException {
+            double totalAmount=0;
+           log.debug("Function entry addPayment");  
+            ObservableList<viewAccountPositionsProperty> klm=  Account_tablefx.getSelectionModel().getSelectedItems();
+            boolean payedposExisting=false;
+            for(viewAccountPositionsProperty kk:klm){
+                    if(kk.getPayment()!=null){
+                           payedposExisting=true;
+                    }
+            }
+
+            if(payedposExisting==false){
+               for(viewAccountPositionsProperty lo:klm ){
+                           totalAmount=totalAmount+ (lo.getcAmount()*lo.getcPrice());
+                           totalAmount=totalAmount - (lo.getdAmount()*lo.getdPrice());
+                           
+                           
+                           
+                           
+            }
+            
+               
+               Stage stage = new Stage();
+        String fxmlFile = "/fxml/paymentgui.fxml";
+       
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane page= (AnchorPane) loader.load(getClass().getResourceAsStream(fxmlFile));
+
+        
+        Scene scene = new Scene(page);
+       
+
+        
+        stage.setScene(scene);
+        PaymentguiController controller= loader.<PaymentguiController>getController();
+       controller.init(totalAmount,accsearchresult);
+      
+        // accsearchresult,this,"rate"
+        stage.showAndWait();
+           log.debug("Function exit addPayment"); 
+    }
+    }
 }

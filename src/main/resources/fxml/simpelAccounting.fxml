@@ -98,6 +98,11 @@ THE SOFTWARE.
                             <Tooltip text="Charge Rate in advance" />
                           </tooltip>
                         </Button>
+                                    <Button id="closeAccount" fx:id="addPayment" layoutY="237.0" mnemonicParsing="false" onAction="#addPayment" prefHeight="34.0" prefWidth="142.0" text="Add payment">
+                                       <tooltip>
+                                          <Tooltip text="Mark position to pay" />
+                                       </tooltip>
+                                    </Button>
                       </children>
                     </AnchorPane>
                   </content>
@@ -123,6 +128,11 @@ THE SOFTWARE.
                         </Button>
                         <Button fx:id="PrintInvoice_FxButton" layoutY="290.0" mnemonicParsing="false" onAction="#PrintInvoice" prefHeight="36.0" prefWidth="142.0" text="Print Invoice" />
                                     <Button fx:id="CloseInvoice_FxButton1" layoutY="326.0" mnemonicParsing="false" onAction="#CloseInvoice" prefHeight="36.0" prefWidth="142.0" text="Close Invoice" />
+                                    <Button id="closeAccount" fx:id="addPayment1" layoutX="1.0" layoutY="136.0" mnemonicParsing="false" onAction="#addPayment" prefHeight="34.0" prefWidth="142.0" text="Add payment">
+                                       <tooltip>
+                                          <Tooltip text="Mark position to pay" />
+                                       </tooltip>
+                                    </Button>
                        
                       </children>
                     </AnchorPane>

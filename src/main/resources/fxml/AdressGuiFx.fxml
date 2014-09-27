@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<!--
+The MIT License
+
+Copyright 2014 Sebastian Russ <citeaux at https://github.com/citeaux/JAHAP>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jahap.gui.AdressGuiFx">
+  <children>
+    <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <HBox alignment="BOTTOM_LEFT" fillHeight="false" prefHeight="35.0" prefWidth="796.0">
+          <children>
+            <Button fx:id="firstRecord_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goFirstRecord" prefHeight="36.0" prefWidth="37.0" text="|&lt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button id="oneRecordForward__fxbutton" fx:id="oneRecordBackward_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goOneRecordBackward" prefHeight="36.0" prefWidth="37.0" text="&lt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button fx:id="oneRecordForward_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goOneRecordForward" prefHeight="36.0" prefWidth="37.0" text="&gt;" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+            <Button fx:id="lastRecord_fxbutton" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goLastRecord" prefHeight="36.0" prefWidth="40.0" text="&gt;|" textAlignment="CENTER" textOverrun="CLIP" wrapText="false" />
+          </children>
+        </HBox>
+      </bottom>
+      <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" rotateGraphic="false" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+            <Tab text="Main">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                              <TitledPane animated="false" layoutX="46.0" layoutY="376.0" prefHeight="182.0" prefWidth="475.0" text="Communication">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                <Label layoutX="95.0" layoutY="56.0" text="Email:" />
+                                <TextField fx:id="email_fxtextfield" layoutX="140.0" layoutY="53.0" prefHeight="31.0" prefWidth="257.0" />
+                                <Label layoutX="67.0" layoutY="17.0" text="Phone no:" />
+                                <TextField fx:id="phoneno_fxtextfield" layoutX="140.0" layoutY="14.0" prefHeight="31.0" prefWidth="259.0" />
+                                          <Label layoutX="57.0" layoutY="96.0" text="Homepage:" />
+                                          <TextField fx:id="homepage" layoutX="140.0" layoutY="91.0" prefHeight="31.0" prefWidth="257.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                              <TitledPane animated="false" layoutX="46.0" layoutY="20.0" prefHeight="352.0" prefWidth="475.0" text="Address">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ChoiceBox fx:id="CountryChoiceBox" layoutX="263.0" layoutY="225.0" prefHeight="31.0" prefWidth="124.0" />
+                                          <ComboBox fx:id="titel" editable="true" layoutX="276.0" layoutY="29.0" prefHeight="31.0" prefWidth="112.0" />
+                                          <Label layoutX="235.0" layoutY="34.0" text="Title:" />
+                                          <Label layoutX="202.0" layoutY="230.0" text="Country:" />
+                                          <TextField fx:id="city_fxtextfield" layoutX="129.0" layoutY="262.0" prefHeight="31.0" prefWidth="259.0" />
+                                          <TextField fx:id="zipcode_fxtextfield" layoutX="129.0" layoutY="225.0" prefWidth="67.0" />
+                                          <TextField fx:id="street_fxtextfield" layoutX="129.0" layoutY="186.0" prefHeight="31.0" prefWidth="259.0" />
+                                          <TextField id="christianname" fx:id="christianname_fxtextfield" layoutX="129.0" layoutY="145.0" prefHeight="31.0" prefWidth="259.0" />
+                                          <TextField id="name" fx:id="name_fxtextfield" layoutX="129.0" layoutY="106.0" prefHeight="31.0" prefWidth="258.0" />
+                                          <Label layoutX="85.0" layoutY="267.0" text="City:" />
+                                          <Label layoutX="53.0" layoutY="230.0" text="Zip Code:" />
+                                          <Label layoutX="78.0" layoutY="191.0" text="Street:" />
+                                          <Label layoutX="26.0" layoutY="150.0" text="Christian name:" />
+                                          <Label layoutX="78.0" layoutY="111.0" text="Name:" />
+                                          <ComboBox fx:id="greeting" editable="true" layoutX="129.0" layoutY="29.0" prefHeight="31.0" prefWidth="93.0" />
+                                          <Label layoutX="62.0" layoutY="34.0" text="Greeting:" />
+                                          <Label layoutX="51.0" layoutY="70.0" prefHeight="21.0" prefWidth="80.0" text="Salutation:" />
+                                          <ComboBox fx:id="salutation" editable="true" layoutX="129.0" layoutY="65.0" prefHeight="31.0" prefWidth="260.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                              <TitledPane animated="false" layoutX="532.0" layoutY="20.0" prefHeight="351.0" prefWidth="241.0" text="untitled">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ChoiceBox fx:id="addresstype" layoutX="14.0" layoutY="35.0" prefHeight="31.0" prefWidth="211.0" />
+                                          <Label layoutX="14.0" layoutY="14.0" text="Addresstype:" />
+                                          <Label layoutX="14.0" layoutY="80.0" text="Remarks:" />
+                                          <TextArea fx:id="remarks" layoutX="14.0" layoutY="101.0" prefHeight="200.0" prefWidth="210.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Reservations">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+                  <Tab text="Preferences">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="24.0" layoutY="29.0" text="Language:" />
+                              <ChoiceBox fx:id="LanguageChoiceBox" layoutX="105.0" layoutY="24.0" prefWidth="150.0" />
+                              <Label layoutX="24.0" layoutY="73.0" text="Currency:" />
+                              <ChoiceBox fx:id="CurrencyChoiceBox" layoutX="105.0" layoutY="68.0" prefWidth="150.0" />
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+          </tabs>
+        </TabPane>
+      </center>
+      <right>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_RIGHT">
+          <children>
+            <Button fx:id="Save" mnemonicParsing="false" onAction="#save" prefHeight="36.0" prefWidth="100.0" text="Save" />
+            <Button id="new" fx:id="newadress" mnemonicParsing="false" onAction="#newadress" prefHeight="36.0" prefWidth="100.0" text="New" />
+            <Button fx:id="search" mnemonicParsing="false" onAction="#searchAdress" prefHeight="36.0" prefWidth="100.0" text="Search" />
+            <Button id="search" fx:id="printAdress" mnemonicParsing="false" onAction="#printAdress" prefHeight="36.0" prefWidth="100.0" text="Print" />
+          </children>
+        </VBox>
+      </right>
+    </BorderPane>
+  </children>
+</AnchorPane>

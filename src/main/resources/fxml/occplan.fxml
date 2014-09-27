@@ -34,17 +34,6 @@ THE SOFTWARE.
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.jahap.gui.occplan">
   <children>
     <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <center>
-        <ScrollPane prefHeight="751.0" prefWidth="810.0">
-          <content>
-            <AnchorPane id="Content" fx:id="occpanel_anchorpane" minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="520.0">
-                     <children>
-                        <Label fx:id="box_label" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="37.0" style="-fx-background-color: grey;" />
-                     </children>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
-      </center>
       <top>
         <ToolBar>
           <items>
@@ -54,6 +43,13 @@ THE SOFTWARE.
           </items>
         </ToolBar>
       </top>
+         <center>
+        <ScrollPane fx:id="ScrollPanel" hbarPolicy="ALWAYS" prefHeight="751.0" prefWidth="810.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+          <content>
+            <AnchorPane id="Content" fx:id="occpanel_anchorpane" minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="520.0" />
+          </content>
+        </ScrollPane>
+         </center>
     </BorderPane>
   </children>
 </AnchorPane>

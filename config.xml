@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><config>
+<database>
+	<persitence_unit>JAHAP</persitence_unit>
+        <database_url>jdbc:derby://localhost:1527/JAHAPs</database_url>
+</database>
+</config>

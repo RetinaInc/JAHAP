@@ -154,7 +154,7 @@ public class EditPositionFx implements Initializable {
         
         AccSearchresult.setEventObj(viewPosition);
         try {
-            AccSearchresult.setDbRecordId(1, guisource);
+            AccSearchresult.setDbRecordId(1, guisource,null);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -475,7 +475,7 @@ public class ResguiController implements Initializable, InterResSearchResultList
          res.setAddresses(address.getDataRecord(ordererid));  // Set Addressrecord
                       
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.mm.yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
           // Set dates for  OCC
             occ.createNewEmptyRecord();
             occ.setArrivaldate(Date.from(datapickerFrom.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
@@ -499,6 +499,8 @@ public class ResguiController implements Initializable, InterResSearchResultList
              
              
              res.saveRecord();
+             accs.setReservation(res.GetCurrentRes());
+             accs.saveRecord();
              occ.setRes(res.getLastRecord());
              overlaps=occ.saveRecord(true);
              
@@ -636,6 +638,7 @@ public class ResguiController implements Initializable, InterResSearchResultList
 
     private void FillWithSelectedData() {
         // init DASH Board
+        
         DASH_ResArrival_fxtxt.setText(res.getArrivaldate());
         DASH_ResDeparture_fxtxt.setText(res.getDeparturedate());
         DASH_ResNo_fxtxt.setText(res.getResno());

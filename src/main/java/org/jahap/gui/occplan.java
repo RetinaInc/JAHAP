@@ -27,14 +27,19 @@ package org.jahap.gui;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
@@ -61,7 +66,7 @@ public class occplan implements Initializable {
     @FXML
     private AnchorPane occpanel_anchorpane;
     @FXML
-    private Label box_label;
+    private ScrollPane ScrollPanel;
 
     //********************  OCC GRID **************** 
     
@@ -75,15 +80,17 @@ public class occplan implements Initializable {
         double XPos=0;
         float hg;
         Dimension j = new Dimension();
-             log.debug("Function entry " + String.valueOf(box_label.getPrefWidth())+ "  " + String.valueOf(box_label.getPrefHeight()) );
-        j.setSize(box_label.getPrefWidth(),box_label.getPrefHeight());
+    //         log.debug("Function entry " + String.valueOf(box_label.getPrefWidth())+ "  " + String.valueOf(box_label.getPrefHeight()) );
+        j.setSize(50,50);
       
         hg=j.width;
         hg=hg/100;        
         hg=hg*PercentOfBox;
         XPos=Math.round(hg);
+             log.debug("XPOS " + String.valueOf(XPos) );
         XPos=XPos+this.getLayoutX();
-        
+             log.debug("Layout x " + String.valueOf(this.getLayoutX()) );
+             log.debug("XPOS 2 " + String.valueOf(XPos) );
         return XPos;
     }
     
@@ -128,9 +135,10 @@ public class occplan implements Initializable {
 
     public void setIdyNumeric(int idyNumeric) {
         this.idyNumeric = idyNumeric;
+      
     }
      
-     
+    
   }
     
     
@@ -288,8 +296,8 @@ public class occplan implements Initializable {
     
      private int xPos=1;
     private int yPos=50;
-    private int xDim=40;
-    private int yDim=20;
+    private int xDim=50;
+    private int yDim=40;
     private int spacingX=1;
     private int spacingY=1;
     private List<String>xheader;
@@ -372,6 +380,7 @@ public class occplan implements Initializable {
          jLabel2.setPrefHeight(dim.getHeight());
          //jLabel2.setBorder();
          jLabel2.setVisible(true);
+       
          occpanel_anchorpane.getChildren().add(jLabel2);
          
          
@@ -383,7 +392,7 @@ public class occplan implements Initializable {
            
                next.x=lastbox.x+dim.width+1;
                 jLabel2 = new Label();
-                jLabel2.setRotate(90);
+               
                 jLabel2.setLayoutX(next.x);
                  jLabel2.setLayoutY(next.y);
 
@@ -392,7 +401,10 @@ public class occplan implements Initializable {
                 
                 jLabel2.setStyle("-fx-border-color: black");
                 jLabel2.setVisible(true);
-                jLabel2.setText(xheader.get(xcounter));
+               String jj= new String();
+               jj=String.copyValueOf(xheader.get(xcounter).toCharArray(),0,5);
+                jLabel2.setText(jj);
+                jLabel2.setId(xheader.get(xcounter));
                 lastbox=next;
                 occpanel_anchorpane.getChildren().add(jLabel2);
                 labels.add(jLabel2);
@@ -417,6 +429,7 @@ public class occplan implements Initializable {
                 jLabel2.setStyle("-fx-border-color: black");
                 jLabel2.setVisible(true);
                 jLabel2.setText(yheader.get(xcounter));
+                jLabel2.setId(yheader.get(xcounter));
                 lastbox=next;
                 occpanel_anchorpane.getChildren().add(jLabel2);
                 labels.add(jLabel2);
@@ -465,24 +478,24 @@ public class occplan implements Initializable {
         for(occcounter=0;occcounter<=OccDataList.size()-1;occcounter++){
               // Get Start pos from xheader   
               for(occsearch=0;occsearch<=xheader.size()-1;occsearch++){
-                  if (xheader.get(occsearch)==OccDataList.get(occcounter).getxPosStartByXHeader()){
+                  if (xheader.get(occsearch).equals(OccDataList.get(occcounter).getxPosStartByXHeader())){
                       searchStartposX=occsearch;
                   }
               }
                for(occsearch=0;occsearch<=yheader.size()-1;occsearch++){
-                  if (yheader.get(occsearch)==OccDataList.get(occcounter).getyPosStartByYHeader()){
+                  if (yheader.get(occsearch).equals(OccDataList.get(occcounter).getyPosStartByYHeader())){
                       searchStartposY=occsearch;
                         }   
                }
                // Get End pos from Header  
                   
                   for(occsearch=0;occsearch<=xheader.size()-1;occsearch++){
-                  if (xheader.get(occsearch)==OccDataList.get(occcounter).getxPosEndByXHeader()){
+                  if (xheader.get(occsearch).equals(OccDataList.get(occcounter).getxPosEndByXHeader())){
                       searchEndposX=occsearch;
                   }
                   }
                for(occsearch=0;occsearch<=yheader.size()-1;occsearch++){
-                  if (yheader.get(occsearch)==OccDataList.get(occcounter).getyPosEndByYHeader()){
+                  if (yheader.get(occsearch).equals(OccDataList.get(occcounter).getyPosEndByYHeader())){
                       searchEndposY=occsearch;
                   }  
                }
@@ -535,8 +548,8 @@ public class occplan implements Initializable {
     
      @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
-       
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy");
+       SimpleDateFormat dt = new SimpleDateFormat("dd.mm.yy"); 
        roomsbean roomsbean=new roomsbean(); 
        occbean occl= new occbean();
        List<Occ>occs=new ArrayList<>();
@@ -545,21 +558,33 @@ public class occplan implements Initializable {
        List<String>xheader=new ArrayList<>();
        List<String>yheader=new ArrayList<>();
        List<occbox>occboxes=new ArrayList<>();
-       xheader.add(today.toString());
+       xheader.add(today.format(formatter).toString());
        for(int k=1;k<31;k++){
-           xheader.add(today.plusDays(k).toString());
+           try {
+               xheader.add(today.plusDays(k).format(formatter).toString());
+           } catch (Exception e) {
+               System.err.printf("#1");
+               e.printStackTrace();
+           }
        }
        rooms=roomsbean.SearchForRooms(null);
        for(Rooms k:rooms){
            yheader.add(k.getCode());
        }
-      
-       occs=occl.SearchForOcc(null);
+       Date tt=Date.from(today.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+       Date tk=Date.from(today.plusDays(31).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+       
+       occs=occl.SearchForOcc(tt,tk);
        for(Occ rs:occs){
-          occbox kk= new occbox(rs.getArrivaldate().toString(), rs.getDeparturedate().toString(),rs.getRoom().getCode(), rs.getGuest().getName());
+           occbox kk = null;
+           try {
+               kk = new occbox(new SimpleDateFormat("dd.MM.yy").format(rs.getArrivaldate()), new SimpleDateFormat("dd.MM.yy").format(rs.getDeparturedate()), rs.getRoom().getCode(), rs.getGuest().getName());
+           } catch (Exception e) {
+               System.err.printf("#2");
+           }
            occboxes.add(kk);
        }
-       
+    
          occplandraw(xheader, yheader, occboxes);
        
     }

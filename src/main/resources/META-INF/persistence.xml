@@ -21,13 +21,12 @@
     <class>org.jahap.entities.Vattype</class>
     <class>org.jahap.entities.SeqStore</class>
     <class>org.jahap.entities.BillNo</class>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/JAHAPs"/>
-      <property name="javax.persistence.jdbc.password" value="gandhi"/>
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="eclipselink.ddl-generation" value="create-tables"/>
-    </properties>
+    <class>org.jahap.entities.Reports</class>
+    <class>org.jahap.entities.Country</class>
+    <class>org.jahap.entities.Currency</class>
+    <class>org.jahap.entities.Language</class>
+    <class>org.jahap.entities.Choice</class>
+    <class>org.jahap.entities.Hotel</class>
   </persistence-unit>
   <!--<persistence-unit name="JAHAPTEST" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>

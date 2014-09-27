@@ -64,7 +64,7 @@ public class occbean extends  DatabaseOperations implements occ_i{
     public occbean(){
         log.debug("Function entry Contructor");
         long testg;
-        dbhook = new JahapDatabaseConnector();
+        dbhook = JahapDatabaseConnector.getConnector();
          
          
         try {
@@ -117,6 +117,18 @@ public class occbean extends  DatabaseOperations implements occ_i{
         log.debug("Function entry SearchForOcc");
                  
         return allrecordlist;
+    }
+    
+    public List<Occ>SearchForOcc(Date fromDate, Date toDate){
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd"); 
+        log.debug("Function entry" + fromDate.toString() + "   // " + toDate.toString());
+       List<Occ> date;
+        query_AllDbRecords=dbhook.getEntity().createQuery("select t from Occ t where t.arrivaldate>='" + dt.format(fromDate) + "' AND t.departuredate<='"+ dt.format(toDate) + "' ORDER BY t.id");
+        date=query_AllDbRecords.getResultList();
+        date.forEach(i -> System.out.println(i.getArrivaldate().toString()+ " // " + i.getDeparturedate().toString() ));
+                
+                
+        return date;
     }
     
      public List<Occ>SearchForOccforRes(Res res){
